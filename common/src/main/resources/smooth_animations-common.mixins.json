@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.mehvahdjukaar.smooth_singleplayer.mixins",
+  "package": "net.mehvahdjukaar.smooth_animations.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ClientLevelMixin",
@@ -10,6 +10,8 @@
     "RenderChunkRegionMixin"
   ],
   "mixins": [
+    "BodyRotationControlMixin",
+    "LookControlMixin"
   ],
   "injectors": {
     "defaultRequire": 1

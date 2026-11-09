@@ -1,7 +1,7 @@
-package net.mehvahdjukaar.smooth_singleplayer.mixins;
+package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.mehvahdjukaar.smooth_singleplayer.client.BlockMeshHider;
+import net.mehvahdjukaar.smooth_animations.client.BlockMeshHider;
 import net.minecraft.client.renderer.chunk.RenderChunkRegion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;

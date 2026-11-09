@@ -1,8 +1,8 @@
-package net.mehvahdjukaar.smooth_singleplayer.mixins;
+package net.mehvahdjukaar.smooth_animations.mixins;
 
-import net.mehvahdjukaar.smooth_singleplayer.client.BlockMeshHider;
-import net.mehvahdjukaar.smooth_singleplayer.common.LandingData;
-import net.mehvahdjukaar.smooth_singleplayer.common.network.LandingFallingBlock;
+import net.mehvahdjukaar.smooth_animations.client.BlockMeshHider;
+import net.mehvahdjukaar.smooth_animations.common.LandingData;
+import net.mehvahdjukaar.smooth_animations.common.network.LandingFallingBlock;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -45,7 +45,7 @@ public abstract class FallingBlockEntityLandingMixin extends Entity implements L
 
     //TODO: dont use override. not compatible with other mods
     @Override
-    public boolean smoothSingleplayer$startLanding() {
+    public boolean smoothSP$startLanding() {
         if (ss$landingPos != null) return false;
 
         BlockPos.MutableBlockPos pos = this.blockPosition().mutable();
@@ -64,13 +64,13 @@ public abstract class FallingBlockEntityLandingMixin extends Entity implements L
     }
 
     @Override
-    public boolean smoothSingleplayer$isLanding() {
+    public boolean smoothSP$isLanding() {
         return ss$landingPos != null;
     }
 
     //fixes the very last bit of fall accounting for the velocity the entity had right before hitting
     @Override
-    public float smoothSingleplayer$getLandingImpactOffset(float partialTick) {
+    public float smoothSP$getLandingRenderYOffset(float partialTick) {
         float actualSpeed = ss$fallSpeedOnLand;
         float movedThisTick = (float) (yo - getY());
         if (movedThisTick >= actualSpeed) return 0;

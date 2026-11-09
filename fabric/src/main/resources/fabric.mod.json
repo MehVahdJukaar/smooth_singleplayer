@@ -12,11 +12,11 @@
     "sources": "${mod_github}"
   },
   "license": "${mod_license}",
-  "accessWidener": "smooth_singleplayer.accesswidener",
+  "accessWidener": "smooth_animations.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.mehvahdjukaar.smooth_singleplayer.platform.SmoothSingleplayerFabric"
+      "net.mehvahdjukaar.smooth_animations.platform.SmoothAnimationsFabric"
     ]
   },
   "mixins": [

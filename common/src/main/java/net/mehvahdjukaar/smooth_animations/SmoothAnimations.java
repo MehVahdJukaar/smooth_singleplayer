@@ -1,12 +1,12 @@
-package net.mehvahdjukaar.smooth_singleplayer;
+package net.mehvahdjukaar.smooth_animations;
 
-import net.mehvahdjukaar.smooth_singleplayer.configs.SmoothConfigs;
+import net.mehvahdjukaar.smooth_animations.configs.SmoothConfigs;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SmoothSingleplayer {
-    public static final String MOD_ID = "smooth_singleplayer";
+public class SmoothAnimations {
+    public static final String MOD_ID = "smooth_animations";
 
     public static final Logger LOGGER = LogManager.getLogger();
 

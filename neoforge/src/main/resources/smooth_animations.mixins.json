@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.mehvahdjukaar.smooth_singleplayer.mixins.neoforge",
+  "package": "net.mehvahdjukaar.smooth_animations.mixins.neoforge",
   "compatibilityLevel": "JAVA_17",
   "client": [
   ],

@@ -1,9 +1,9 @@
-package net.mehvahdjukaar.smooth_singleplayer.mixins;
+package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mehvahdjukaar.smooth_singleplayer.common.network.LandingFallingBlock;
+import net.mehvahdjukaar.smooth_animations.common.network.LandingFallingBlock;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -22,7 +22,7 @@ public abstract class FallingBlockRendererMixin {
             target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"))
     private BlockState ss$keepDrawingWhileLanding(BlockState original, @Local(argsOnly = true) FallingBlockEntity entity) {
         //hijacks so it thinks we pass through air
-        return ((LandingFallingBlock) entity).smoothSingleplayer$isLanding() ? Blocks.AIR.defaultBlockState() : original;
+        return ((LandingFallingBlock) entity).smoothSP$isLanding() ? Blocks.AIR.defaultBlockState() : original;
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
@@ -30,8 +30,8 @@ public abstract class FallingBlockRendererMixin {
     private void ss$stopOnImpact(FallingBlockEntity entity, float entityYaw, float partialTicks, PoseStack poseStack,
                                  MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
         LandingFallingBlock landing = (LandingFallingBlock) entity;
-        if (landing.smoothSingleplayer$isLanding()) {
-            poseStack.translate(0, landing.smoothSingleplayer$getLandingImpactOffset(partialTicks), 0);
+        if (landing.smoothSP$isLanding()) {
+            poseStack.translate(0, landing.smoothSP$getLandingRenderYOffset(partialTicks), 0);
         }
     }
 }

@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.smooth_singleplayer.client;
+package net.mehvahdjukaar.smooth_animations.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;

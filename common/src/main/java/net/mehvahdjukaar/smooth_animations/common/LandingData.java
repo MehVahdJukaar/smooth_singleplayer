@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.smooth_singleplayer.common;
+package net.mehvahdjukaar.smooth_animations.common;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.chunk.SectionRenderDispatcher;
