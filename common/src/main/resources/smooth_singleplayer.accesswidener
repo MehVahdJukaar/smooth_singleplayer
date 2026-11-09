@@ -1,2 +1,5 @@
 accessWidener   v2  named
 
+#falling block landing
+accessible field net/minecraft/client/renderer/LevelRenderer viewArea Lnet/minecraft/client/renderer/ViewArea;
+accessible method net/minecraft/client/renderer/ViewArea getRenderSectionAt (Lnet/minecraft/core/BlockPos;)Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$RenderSection;
