@@ -88,24 +88,6 @@ subprojects {
         maven { url = uri("https://maven.parchmentmc.org") }
         maven { url = uri("https://maven.neoforged.net") }
 
-        maven { url = uri("https://maven.createmod.net") } // Create Mod, Ponder, Flywheel
-        maven { url = uri("https://maven.blamejared.com") } // JEI, Vazkii's Mods
-        maven { url = uri("https://maven.ladysnake.org/releases") } // Ladysnake mods
-        maven { url = uri("https://maven.tterrag.com/") } // Flywheel, EnderIO
-        maven { url = uri("https://mvn.devos.one/releases/") } // Registrate, Porting Lib (releases)
-        maven { url = uri("https://mvn.devos.one/snapshots/") } // Registrate, Porting Lib (snapshots)
-        maven { url = uri("https://maven.terraformersmc.com/") } // TerraformersMC mods
-        maven { url = uri("https://maven.saps.dev/releases") } // FTB Mods
-        maven { url = uri("https://dl.cloudsmith.io/public/tslat/sbl/maven/") }
-        maven { url = uri("https://maven.theillusivec4.top/") } // Curios API
-        maven { url = uri("https://maven.squiddev.cc") } // CC: Tweaked
-        maven { url = uri("https://maven.su5ed.dev/releases") } // SU5ED mods
-        maven { url = uri("https://harleyoconnor.com/maven") } // Dynamic Trees
-        maven { url = uri("https://maven.misterpemodder.com/libs-release/") } // ShulkerBoxTooltip
-        maven { url = uri("https://maven.firstdarkdev.xyz/snapshots") } // FirstDarkDev (snapshots)
-        maven { url = uri("https://raw.githubusercontent.com/Fuzss/modresources/main/maven") } // Fuzss' Mod Resources
-        maven { url = uri("https://maven.jamieswhiteshirt.com/libs-release") } // Jamie's Mods
-        maven { url = uri("https://maven.ryanhcode.dev/releases") }
         maven { url = uri("https://api.modrinth.com/maven") } // Modrinth (Sodium, etc.)
     }
 }

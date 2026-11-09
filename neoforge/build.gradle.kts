@@ -12,6 +12,4 @@ val moonlight_version: String by extra
 dependencies {
     modImplementation("net.mehvahdjukaar:moonlight-neoforge:${moonlight_version}")
     accessTransformers("net.mehvahdjukaar:moonlight-neoforge:${moonlight_version}")
-
-    modCompileOnly("curse.maven:jei-238222:5846880")
 }
