@@ -39,9 +39,9 @@ public abstract class MinecraftMixin {
         long start = Util.getNanos();
         //ok now we wait for server to do its ticking
         long giveUpAt = start + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
-        while (!SinglePlayerTickManager.isServerTickDone() && Util.getNanos() < giveUpAt) {
-            Thread.onSpinWait();
-        }
+        var mc = ((Minecraft) (Object) this);
+        //block until server is done
+        mc.managedBlock(() -> SinglePlayerTickManager.hasReceivedAllowedTicks() || Util.getNanos() > giveUpAt);
         SmoothAnimations.LOGGER.info("waited {}ms for server", (Util.getNanos() - start) / 1000000f);
     }
 

@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.smooth_animations;
 
+import net.mehvahdjukaar.smooth_animations.common.network.ModNetworking;
 import net.mehvahdjukaar.smooth_animations.configs.SmoothConfigs;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -16,5 +17,6 @@ public class SmoothAnimations {
 
     public static void commonInit() {
         SmoothConfigs.init();
+        ModNetworking.init();
     }
 }

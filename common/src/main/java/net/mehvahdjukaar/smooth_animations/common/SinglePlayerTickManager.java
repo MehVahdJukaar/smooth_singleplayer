@@ -3,16 +3,18 @@ package net.mehvahdjukaar.smooth_animations.common;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SinglePlayerTickManager {
 
     public static final long WAIT_LIMIT_NANOS = 200000000L;
 
     private static volatile boolean clientDrivesTicks;
-    //these 2 only ever go up. obviously no thread local as these are accessed by 2 threads
-    private static final AtomicLong serverTicksAllowed = new AtomicLong();
-    private static final AtomicLong serverTicksCompleted = new AtomicLong();
+    //cient gives one per tick, server uses it up
+    private static final Semaphore serverTickPermits = new Semaphore(0);
+    //so this is basically a boolean but can go > 1 when the server lags or stalls
+    private static final AtomicInteger serverTicksBeingAwaitedFor = new AtomicInteger();
 
     public static boolean isTrueSinglePlayer(@Nullable MinecraftServer server) {
         //published means opened to LAN
@@ -23,8 +25,8 @@ public class SinglePlayerTickManager {
         return clientDrivesTicks;
     }
     public static void activateClientTickDrive() {
-        //reset to match
-        serverTicksAllowed.set(serverTicksCompleted.get());
+        serverTickPermits.drainPermits();
+        serverTicksBeingAwaitedFor.set(0);
         allowNextServerTick();
 
         clientDrivesTicks = true;
@@ -35,18 +37,21 @@ public class SinglePlayerTickManager {
     }
 
     public static void allowNextServerTick() {
-        serverTicksAllowed.incrementAndGet();
+        serverTicksBeingAwaitedFor.incrementAndGet();
+
+        serverTickPermits.release();
     }
 
-    public static boolean isServerTickDone() {
-        return serverTicksCompleted.get() >= serverTicksAllowed.get();
+    //server being done means we have received its packet too which happens slightly after end of server tick
+    public static boolean hasReceivedAllowedTicks() {
+        return serverTicksBeingAwaitedFor.get() <= 0;
     }
 
-    public static boolean mayServerTick() {
-        return !clientDrivesTicks || serverTicksCompleted.get() < serverTicksAllowed.get();
+    public static void onServerTickDoneReceived() {
+        serverTicksBeingAwaitedFor.decrementAndGet();
     }
 
-    public static void onServerTickDone() {
-        serverTicksCompleted.incrementAndGet();
+    public static boolean tryStartServerTick() {
+        return !clientDrivesTicks || serverTickPermits.tryAcquire();
     }
 }

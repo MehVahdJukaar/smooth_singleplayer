@@ -28,7 +28,8 @@ public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<T
 
         long giveUpAt = Util.getNanos() + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
         this.runAllTasks();
-        this.managedBlock(() -> SinglePlayerTickManager.mayServerTick() || Util.getNanos() > giveUpAt);
+        //same deal as the client
+        this.managedBlock(() -> SinglePlayerTickManager.tryStartServerTick() || Util.getNanos() > giveUpAt);
         //the client sets the pace now. hyjacks this otherwise server thinks its behind and spams cant keep up..
         this.nextTickTimeNanos = Util.getNanos();
         ci.cancel();
