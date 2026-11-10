@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class SinglePlayerTickManager {
 
+    public static final long WAIT_LIMIT_NANOS = 200000000L;
+
     private static volatile boolean clientDrivesTicks;
     //these 2 only ever go up. obviously no thread local as these are accessed by 2 threads
     private static final AtomicLong serverTicksAllowed = new AtomicLong();

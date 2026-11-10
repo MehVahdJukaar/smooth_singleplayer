@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
+import net.minecraft.Util;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.TickTask;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;
@@ -21,8 +22,9 @@ public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<T
     private void ss$waitForClientTick(CallbackInfo ci) {
         if (!SinglePlayerTickManager.isClientDriven()) return;
 
+        long giveUpAt = Util.getNanos() + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
         this.runAllTasks();
-        this.managedBlock(SinglePlayerTickManager::mayServerTick);
+        this.managedBlock(() -> SinglePlayerTickManager.mayServerTick() || Util.getNanos() > giveUpAt);
         ci.cancel();
     }
 }
