@@ -5,13 +5,15 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ClientLevelMixin",
+    "ClientPacketListenerMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
     "RenderChunkRegionMixin"
   ],
   "mixins": [
     "BodyRotationControlMixin",
-    "LookControlMixin"
+    "LookControlMixin",
+    "ServerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

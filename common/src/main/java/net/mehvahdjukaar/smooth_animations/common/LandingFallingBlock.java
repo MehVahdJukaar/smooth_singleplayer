@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.smooth_animations.common.network;
+package net.mehvahdjukaar.smooth_animations.common;
 
 //landing is process of being half placed in world and half entity. both exist at sametime for some ticks.
 public interface LandingFallingBlock {

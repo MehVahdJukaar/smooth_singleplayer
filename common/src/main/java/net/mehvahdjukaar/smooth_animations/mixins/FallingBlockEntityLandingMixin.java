@@ -2,7 +2,7 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.client.BlockMeshHider;
 import net.mehvahdjukaar.smooth_animations.common.LandingData;
-import net.mehvahdjukaar.smooth_animations.common.network.LandingFallingBlock;
+import net.mehvahdjukaar.smooth_animations.common.LandingFallingBlock;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;

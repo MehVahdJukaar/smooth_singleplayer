@@ -3,7 +3,7 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mehvahdjukaar.smooth_animations.common.network.LandingFallingBlock;
+import net.mehvahdjukaar.smooth_animations.common.LandingFallingBlock;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.world.entity.item.FallingBlockEntity;
