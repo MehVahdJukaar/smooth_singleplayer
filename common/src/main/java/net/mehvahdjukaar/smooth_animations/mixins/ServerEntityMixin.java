@@ -19,6 +19,6 @@ public abstract class ServerEntityMixin {
     @ModifyExpressionValue(method = "sendChanges", at = @At(value = "FIELD",
             target = "Lnet/minecraft/server/level/ServerEntity;updateInterval:I"))
     private int ss$sendEveryTick(int updateInterval) {
-        return SinglePlayerTickManager.isActive(level.getServer()) ? 1 : updateInterval;
+        return SinglePlayerTickManager.isTrueSinglePlayer(level.getServer()) ? 1 : updateInterval;
     }
 }

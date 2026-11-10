@@ -12,13 +12,13 @@ public abstract class ClientPacketListenerMixin {
 
     @ModifyArg(method = {"handleTeleportEntity", "handleMoveEntity"}, index = 5,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpTo(DDDFFI)V"))
-    private int ss$noLerp(int steps) {
-        return SinglePlayerTickManager.isActive(Minecraft.getInstance().getSingleplayerServer()) ? 1 : steps;
+    private int smoothAnim$stopTPLerp(int steps) {
+        return SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer()) ? 1 : steps;
     }
 
     @ModifyArg(method = "handleRotateMob", index = 1,
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpHeadTo(FI)V"))
-    private int ss$noHeadLerp(int steps) {
-        return SinglePlayerTickManager.isActive(Minecraft.getInstance().getSingleplayerServer()) ? 1 : steps;
+    private int smoothAnim$stopHeadLerp(int steps) {
+        return SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer()) ? 1 : steps;
     }
 }

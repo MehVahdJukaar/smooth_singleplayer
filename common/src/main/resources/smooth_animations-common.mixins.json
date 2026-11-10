@@ -8,6 +8,9 @@
     "ClientPacketListenerMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
+    "IntegratedServerMixin",
+    "MinecraftMixin",
+    "MinecraftServerMixin",
     "RenderChunkRegionMixin"
   ],
   "mixins": [
