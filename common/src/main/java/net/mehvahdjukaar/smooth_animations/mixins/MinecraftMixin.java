@@ -5,6 +5,7 @@ import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +20,9 @@ public abstract class MinecraftMixin {
     @Shadow
     @Nullable
     public ClientLevel level;
+    @Shadow
+    @Nullable
+    public LocalPlayer player;
 
     @Shadow
     @Nullable
@@ -26,7 +30,10 @@ public abstract class MinecraftMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void ss$waitForServerTick(CallbackInfo ci) {
-        if (!SinglePlayerTickManager.isTrueSinglePlayer(getSingleplayerServer()) || level == null) {
+        IntegratedServer server = getSingleplayerServer();
+        boolean canSync = SinglePlayerTickManager.isTrueSinglePlayer(server) && level != null && player != null
+                && !server.tickRateManager().isSprinting();
+        if (!canSync) {
             //no longer in single player
             SinglePlayerTickManager.disableClientTickDrive();
             return;
