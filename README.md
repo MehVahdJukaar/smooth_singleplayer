@@ -1,10 +1,7 @@
 # Singleplayer Jitter Fix: Smooth Entity Animations
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="24%" alt="Falling blocks">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="24%" alt="Mob turning">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="24%" alt="Mob movement">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="24%" alt="Projectiles">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="23%" alt="Falling blocks"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="23%" alt="Mob turning"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="23%" alt="Mob movement"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="23%" alt="Projectiles">
 </p>
 
 Ever since beta 1.3 the game has been PLAGUED by this very controlversion change: The client- serveer split.
