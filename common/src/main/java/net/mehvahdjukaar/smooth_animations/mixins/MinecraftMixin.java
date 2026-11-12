@@ -49,13 +49,14 @@ public abstract class MinecraftMixin {
             return;
         }
 
-        long start = Util.getNanos();
+        long start = System.nanoTime();
         //ok now we wait for server to do its ticking
         long giveUpAt = start + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
         var mc = ((Minecraft) (Object) this);
         //block until server is done
-        mc.managedBlock(() -> SinglePlayerTickManager.hasReceivedAllowedTicks() || Util.getNanos() > giveUpAt);
-        SmoothAnimations.LOGGER.info("waited {}ms for server", (Util.getNanos() - start) / 1000000f);
+        mc.managedBlock(() -> SinglePlayerTickManager.hasReceivedAllowedTicks() || System.nanoTime() > giveUpAt);
+
+        SmoothAnimations.LOGGER.info("waited {}ms for server", (System.nanoTime() - start) / 1000000f);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

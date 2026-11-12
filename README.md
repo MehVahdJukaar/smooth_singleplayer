@@ -1,6 +1,11 @@
 # Singleplayer Jitter Fix: Smooth Entity Animations
 
-![meme](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/tick_sync_meme.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="24%" alt="Falling blocks">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="24%" alt="Mob turning">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="24%" alt="Mob movement">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="24%" alt="Projectiles">
+</p>
 
 Ever since beta 1.3 the game has been PLAGUED by this very controlversion change: The client- serveer split.
 
@@ -17,10 +22,4 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   Fixes entities spawned in wrong phase staritng on client with a wrong position causing entity snapback when server updates them
 *   Fixes falling blocks disappearing as soon as the block is placed. Now they disappear when the chunk mesh has hpdated instead, perfectluy smooth.
 
-## Before & After:
-
-![Falling blocks](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif)
-![Mob turning](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif)
-![Mob movement](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif)
-![Projectiles](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif)
-![Hitboxes](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/hitbox.gif)
+![meme](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/tick_sync_meme.png)
