@@ -6,6 +6,7 @@
   "client": [
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
+    "DeltaTrackerTimerMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
     "IntegratedServerMixin",

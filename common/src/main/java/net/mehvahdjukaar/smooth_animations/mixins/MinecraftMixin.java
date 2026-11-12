@@ -2,12 +2,15 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.SmoothAnimations;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
+import net.mehvahdjukaar.smooth_animations.client.FrameTimeCatchUp;
 import net.minecraft.Util;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,6 +26,9 @@ public abstract class MinecraftMixin {
     @Shadow
     @Nullable
     public LocalPlayer player;
+    @Shadow
+    @Final
+    private DeltaTracker.Timer timer;
 
     @Shadow
     @Nullable
@@ -58,5 +64,11 @@ public abstract class MinecraftMixin {
         if (SinglePlayerTickManager.isClientDriven()){
             SinglePlayerTickManager.allowNextServerTick();
         }
+    }
+
+    //partial tick is ocomputed right before the tick runs, so frames with a tick draw stuff a few ms late
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void smoothAnim$catchUpFrameTime(CallbackInfo ci) {
+        ((FrameTimeCatchUp) timer).smoothAnim$catchUpPartialTick(Util.getMillis());
     }
 }
