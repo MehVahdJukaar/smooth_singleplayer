@@ -1,6 +1,6 @@
 # Singleplayer Jitter Fix: Smooth Entity Animations
 
-![alt text](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/tick_sync_meme.png)
+![meme]([https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/tick_sync_meme.png](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/tick_sync_meme.png))
 
 Ever since beta 1.3 the game has been PLAGUED by this very controlversion change: The client- serveer split.
 
