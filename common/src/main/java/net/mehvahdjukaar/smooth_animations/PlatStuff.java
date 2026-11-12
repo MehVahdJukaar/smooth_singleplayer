@@ -12,9 +12,8 @@ public class PlatStuff {
 
     @Contract
     @PlatformImpl
-    public static <T extends CustomPacketPayload> void registerClientBoundPayload(CustomPacketPayload.Type<T> type,
-                                                                                  StreamCodec<? super RegistryFriendlyByteBuf, T> codec,
-                                                                                  Consumer<T> handler) {
+    public static <T extends CustomPacketPayload> void registerClientBoundPayload(
+            CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, Consumer<T> handler) {
         throw new AssertionError();
     }
 }
