@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
+import net.mehvahdjukaar.smooth_animations.common.FirstServerUpdateAware;
 import net.mehvahdjukaar.smooth_animations.common.LandingFallingBlock;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
@@ -13,10 +14,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ClientLevelMixin {
 
     @Inject(method = "removeEntity", at = @At("HEAD"), cancellable = true)
-    private void ss$letFallingBlockLand(int entityId, Entity.RemovalReason reason, CallbackInfo ci) {
+    private void smoothAnim$letFallingBlockLand(int entityId, Entity.RemovalReason reason, CallbackInfo ci) {
         if (((ClientLevel) (Object) this).getEntity(entityId) instanceof FallingBlockEntity f
                 && ((LandingFallingBlock) f).smoothSP$startLanding()) {
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "tickNonPassenger", at = @At("HEAD"), cancellable = true)
+    private void smoothAnim$holdNewEntity(Entity p_entity, CallbackInfo ci) {
+        //on this is complicated. basically SOME entity spawned at right times get spawned on server AND ticked
+        //others, like in mobs AI are spawned AFTER tick has happened.
+        //all client entities must be at most 1 tick behind the server as thats the time it takes for a packet to arrive
+        //hereis order:
+        //1. block ticks & handle packets
+        //2. send packets
+        //3. server tick (move)
+        //sekelton arrow is spawned AFTER ticks (in server tick). player arrow generated in 1 instead so it ticks and moves rightafter.
+        //this means on tick 2 BOTH arrows are at pos 0 BUT server is ahead on player (good) but NOT ahead on skelly.
+        //so later on the server send sync packet and arrow is snapped back...
+        if (((FirstServerUpdateAware) p_entity).smoothAnim$shouldWaitForServer()){
+         ci.cancel();
         }
     }
 }
