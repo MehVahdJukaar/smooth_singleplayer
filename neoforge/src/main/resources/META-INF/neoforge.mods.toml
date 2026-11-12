@@ -17,6 +17,7 @@ issueTrackerURL = "${mod_github}/issues"
     credits = "${mod_credits}"
     description = '''${mod_description}'''
     modUrl = "${mod_homepage}"
+    logoFile = "icon.png"
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"
