@@ -1,9 +1,9 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
-import net.mehvahdjukaar.moonlight.api.platform.network.NetworkHelper;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.mehvahdjukaar.smooth_animations.common.network.ClientBoundNotifyServerTickDoneMessage;
 import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +23,8 @@ public abstract class IntegratedServerMixin {
     @Inject(method = "tickServer", at = @At("RETURN"))
     private void smoothAnim$markTickDone(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
         if (SinglePlayerTickManager.isClientDriven()) {
-            NetworkHelper.sendToAllClientPlayers(new ClientBoundNotifyServerTickDoneMessage());
+            ((IntegratedServer) (Object) this).getPlayerList()
+                    .broadcastAll(new ClientboundCustomPayloadPacket(ClientBoundNotifyServerTickDoneMessage.INSTANCE));
         }
     }
 }
