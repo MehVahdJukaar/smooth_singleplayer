@@ -16,3 +16,11 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   All entities "send" their position every tick. this means they are always 1 tick behind as opposed to several in vanilla
 *   Fixes entities spawned in wrong phase staritng on client with a wrong position causing entity snapback when server updates them
 *   Fixes falling blocks disappearing as soon as the block is placed. Now they disappear when the chunk mesh has hpdated instead, perfectluy smooth.
+
+## Before & After:
+
+![Falling blocks](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif)
+![Mob turning](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif)
+![Mob movement](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif)
+![Projectiles](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif)
+![Hitboxes](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/hitbox.gif)
