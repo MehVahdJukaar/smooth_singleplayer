@@ -1,8 +1,12 @@
 package net.mehvahdjukaar.smooth_animations.common;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,6 +19,12 @@ public class SinglePlayerTickManager {
     private static final Semaphore serverTickPermits = new Semaphore(0);
     //so this is basically a boolean but can go > 1 when the server lags or stalls
     private static final AtomicInteger serverTicksBeingAwaitedFor = new AtomicInteger();
+
+
+    //shared map. server sets it and client reads it
+    private static final Set<Integer> spawnedMidEntityTick = ConcurrentHashMap.newKeySet();
+    //so we might want to make this thread local.. idk
+    private static boolean inEntityTick;
 
     public static boolean isTrueSinglePlayer(@Nullable MinecraftServer server) {
         //published means opened to LAN
@@ -53,5 +63,31 @@ public class SinglePlayerTickManager {
 
     public static boolean tryStartServerTick() {
         return !clientDrivesTicks || serverTickPermits.tryAcquire();
+    }
+
+    //entity stuff
+
+    public static void setInEntityTick(boolean ticking) {
+        inEntityTick = ticking;
+    }
+
+    public static void onServerEntityAdded(Entity entity) {
+        if (!inEntityTick || !clientDrivesTicks) return;
+
+        //so there are 2 kinds of entities. one mostly server driven and one mostly client driven
+        //projectiles are ballistic, client drives most of their trajectory as thats known with sporading server adjustements
+        //mobs move by interpolating over server sent positions.
+        //mobs thus dont need the 1 time tick freeze, it would be a downgrade
+        //inEntityTick detects that stage when entityes added wil be like skelly example
+        if (entity instanceof LivingEntity) return;
+        spawnedMidEntityTick.add(entity.getId());
+    }
+
+    public static boolean consumeHeldEntityTick(Entity entity) {
+        return spawnedMidEntityTick.remove(entity.getId());
+    }
+
+    public static void clearSpawnedMidEntityTick() {
+        spawnedMidEntityTick.clear();
     }
 }

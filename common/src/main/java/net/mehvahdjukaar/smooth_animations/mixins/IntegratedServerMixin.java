@@ -14,8 +14,14 @@ import java.util.function.BooleanSupplier;
 @Mixin(IntegratedServer.class)
 public abstract class IntegratedServerMixin {
 
+    //client already ticked whatever was spawned last tick (i.e player arrows but not skelly arros)
+    @Inject(method = "tickServer", at = @At("HEAD"))
+    private void smoothAnim$clearMidTickSpawns(BooleanSupplier hasTimeLeft,  CallbackInfo ci) {
+        SinglePlayerTickManager.clearSpawnedMidEntityTick();
+    }
+
     @Inject(method = "tickServer", at = @At("RETURN"))
-    private void ss$markTickDone(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
+    private void smoothAnim$markTickDone(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
         if (SinglePlayerTickManager.isClientDriven()) {
             NetworkHelper.sendToAllClientPlayers(new ClientBoundNotifyServerTickDoneMessage());
         }

@@ -6,13 +6,13 @@
   "client": [
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
-    "EntityMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
     "IntegratedServerMixin",
     "MinecraftMixin",
     "MinecraftServerMixin",
-    "RenderChunkRegionMixin"
+    "RenderChunkRegionMixin",
+    "ServerLevelMixin"
   ],
   "mixins": [
     "BodyRotationControlMixin",

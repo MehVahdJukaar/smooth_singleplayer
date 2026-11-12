@@ -1,7 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
-import net.mehvahdjukaar.smooth_animations.common.FirstServerUpdateAware;
 import net.mehvahdjukaar.smooth_animations.common.LandingFallingBlock;
+import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -33,7 +33,7 @@ public abstract class ClientLevelMixin {
         //sekelton arrow is spawned AFTER ticks (in server tick). player arrow generated in 1 instead so it ticks and moves rightafter.
         //this means on tick 2 BOTH arrows are at pos 0 BUT server is ahead on player (good) but NOT ahead on skelly.
         //so later on the server send sync packet and arrow is snapped back...
-        if (((FirstServerUpdateAware) p_entity).smoothAnim$shouldWaitForServer()){
+        if (SinglePlayerTickManager.consumeHeldEntityTick(p_entity)){
          ci.cancel();
         }
     }
