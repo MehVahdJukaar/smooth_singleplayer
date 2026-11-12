@@ -56,7 +56,7 @@ public abstract class MinecraftMixin {
         //block until server is done
         mc.managedBlock(() -> SinglePlayerTickManager.hasReceivedAllowedTicks() || System.nanoTime() > giveUpAt);
 
-        SmoothAnimations.LOGGER.info("waited {}ms for server", (System.nanoTime() - start) / 1000000f);
+        //SmoothAnimations.LOGGER.debug("waited {}ms for server", (System.nanoTime() - start) / 1000000f);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
