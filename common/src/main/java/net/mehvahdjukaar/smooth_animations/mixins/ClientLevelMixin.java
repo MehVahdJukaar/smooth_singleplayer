@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
+import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.mehvahdjukaar.smooth_animations.common.LandingFallingBlock;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -15,7 +16,7 @@ public abstract class ClientLevelMixin {
 
     @Inject(method = "removeEntity", at = @At("HEAD"), cancellable = true)
     private void smoothAnim$letFallingBlockLand(int entityId, Entity.RemovalReason reason, CallbackInfo ci) {
-        if (((ClientLevel) (Object) this).getEntity(entityId) instanceof FallingBlockEntity f
+        if (ModConfigs.fallingBlockLanding && (((ClientLevel) (Object) this).getEntity(entityId) instanceof FallingBlockEntity f)
                 && ((LandingFallingBlock) f).smoothSP$startLanding()) {
             ci.cancel();
         }

@@ -16,4 +16,10 @@ public class PlatStuff {
             CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, Consumer<T> handler) {
         throw new AssertionError();
     }
+
+    @Contract
+    @PlatformImpl
+    public static void registerConfigs() {
+        throw new AssertionError();
+    }
 }

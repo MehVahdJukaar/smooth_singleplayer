@@ -16,6 +16,6 @@ public class SmoothAnimations {
 
     public static void commonInit() {
         ModNetworking.init();
-        //TODO: add configs
+        PlatStuff.registerConfigs();
     }
 }
