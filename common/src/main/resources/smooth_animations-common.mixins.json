@@ -9,6 +9,7 @@
     "DeltaTrackerTimerMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
+    "GhastRendererMixin",
     "IntegratedServerMixin",
     "MinecraftMixin",
     "MinecraftServerMixin",
@@ -17,6 +18,8 @@
   ],
   "mixins": [
     "BodyRotationControlMixin",
+    "EntityMixin",
+    "GhastMixin",
     "LookControlMixin",
     "ServerEntityMixin"
   ],

@@ -35,6 +35,8 @@ public class PlatStuffImpl {
                 .define("smooth_rotations", true);
         var fallingBlocks = builder.comment("Smooth transition for falling block entity to block transformation")
                 .define("smooth_falling_block_landing", true);
+        var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0")
+                .define("ghast_swell", true);
         ModConfigSpec spec = builder.build();
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore
@@ -48,6 +50,7 @@ public class PlatStuffImpl {
         Runnable refresh = () -> {
             ModConfigs.entityRotationFix = entityRotation.get();
             ModConfigs.fallingBlockLanding = fallingBlocks.get();
+            ModConfigs.ghastSwell = ghastSwell.get();
         };
 
         IEventBus bus = c.getEventBus();
