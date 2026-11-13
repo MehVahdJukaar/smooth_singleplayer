@@ -1,3 +1,4 @@
+import org.gradle.internal.build.ExecutionResult.forEach
 
 plugins {
     id("com.possible-triangle.core") version "1.4.259"
@@ -45,8 +46,14 @@ subprojects {
 
 
     upload {
-        maven {
-            nexus()
+        //maven {
+        //    nexus()
+        //}
+
+
+        curseforge {
+        }
+        modrinth {
         }
 
         forEach {

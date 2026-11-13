@@ -1,0 +1,1 @@
+- added a simple config file

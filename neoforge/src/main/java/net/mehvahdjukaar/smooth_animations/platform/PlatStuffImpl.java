@@ -10,6 +10,9 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -36,6 +39,11 @@ public class PlatStuffImpl {
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore
         c.registerConfig(ModConfig.Type.COMMON, spec);
+
+
+        if (FMLEnvironment.dist.isClient()) {
+            c.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        }
 
         Runnable refresh = () -> {
             ModConfigs.entityRotationFix = entityRotation.get();

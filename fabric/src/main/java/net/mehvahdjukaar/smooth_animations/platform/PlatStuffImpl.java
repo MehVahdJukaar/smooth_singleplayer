@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.smooth_animations.platform;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
