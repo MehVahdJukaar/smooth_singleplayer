@@ -7,5 +7,7 @@ public class ModNetworking {
     public static void init() {
         PlatStuff.registerClientBoundPayload(ClientBoundNotifyServerTickDoneMessage.TYPE,
                 ClientBoundNotifyServerTickDoneMessage.CODEC, ClientBoundNotifyServerTickDoneMessage::handle);
+        PlatStuff.registerClientBoundPayload(ClientBoundGhastChargingMessage.TYPE,
+                ClientBoundGhastChargingMessage.CODEC, ClientBoundGhastChargingMessage::handle);
     }
 }

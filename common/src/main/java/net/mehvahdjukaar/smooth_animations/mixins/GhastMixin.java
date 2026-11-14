@@ -14,10 +14,14 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(Ghast.class)
 public abstract class GhastMixin extends FlyingMob implements SwellingGhast {
 
+    //forn 0 to 20
     @Unique
     private int ss$chargeTime;
     @Unique
     private int ss$prevChargeTime;
+    //if our packet is being used
+    @Unique
+    private boolean ss$chargingFromServer;
     @Shadow
     public abstract boolean isCharging();
 
@@ -32,18 +36,26 @@ public abstract class GhastMixin extends FlyingMob implements SwellingGhast {
         //alternative could also be react to synced data update. this is more resilient
         boolean clientDriven = SinglePlayerTickManager.isClientDriven();
         ss$prevChargeTime = ss$chargeTime;
-        if (isCharging()) {
+        if (ss$chargingFromServer || isCharging()) {
             //so the goal syncs the data at 1 and should shoot at 20.
             //Since client is 1 tick behind we start from 12 to peak on the shot.
             // But wait, actually here we encounter that other projectile bug that makes fireball wait 1 tick so we have to wait too
 
-            ss$chargeTime = Math.min(Math.max(ss$chargeTime + 1, clientDriven ? 11 : 12), 20);
+            // our packet comes at 1 the flag only at 11 . 2 possible stsarts
+            int start = (ss$chargingFromServer ? 1 : 11) + (clientDriven ? 0 : 1);
+            ss$chargeTime = Mth.clamp(ss$chargeTime + 1, start, 20);
         } else if (clientDriven && ss$chargeTime == 19) {
             ss$chargeTime = 20;
         } else {
             ss$chargeTime = Math.max(ss$chargeTime - 5, 0);
         }
     }
+
+    @Override
+    public void smoothSP$setChargingFromServer(boolean charging) {
+        ss$chargingFromServer = charging;
+    }
+
 
     @Override
     public float smoothSP$getChargeAmount(float partialTick) {

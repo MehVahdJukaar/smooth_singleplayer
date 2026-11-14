@@ -18,8 +18,8 @@
   ],
   "mixins": [
     "BodyRotationControlMixin",
-    "EntityMixin",
     "GhastMixin",
+    "GhastShootFireballGoalMixin",
     "LookControlMixin",
     "ServerEntityMixin"
   ],
