@@ -37,6 +37,8 @@ public class PlatStuffImpl {
                 .define("smooth_falling_block_landing", true);
         var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0")
                 .define("ghast_swell", true);
+        var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
+                .define("wither_yaw_fix", true);
         ModConfigSpec spec = builder.build();
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore
@@ -51,6 +53,7 @@ public class PlatStuffImpl {
             ModConfigs.entityRotationFix = entityRotation.get();
             ModConfigs.fallingBlockLanding = fallingBlocks.get();
             ModConfigs.ghastSwell = ghastSwell.get();
+            ModConfigs.witherYawFix = witherYaw.get();
         };
 
         IEventBus bus = c.getEventBus();

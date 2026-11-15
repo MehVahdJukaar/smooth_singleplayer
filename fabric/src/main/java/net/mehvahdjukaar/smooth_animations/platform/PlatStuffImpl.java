@@ -38,10 +38,12 @@ public class PlatStuffImpl {
             ModConfigs.fallingBlockLanding = GsonHelper.getAsBoolean(jo, "falling_block_landing", true);
             ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "entity_rotation_fix", true);
             ModConfigs.ghastSwell = GsonHelper.getAsBoolean(jo, "ghast_swell", true);
+            ModConfigs.witherYawFix = GsonHelper.getAsBoolean(jo, "wither_yaw_fix", true);
 
             jo.addProperty("entity_rotation_fix", ModConfigs.entityRotationFix);
             jo.addProperty("falling_block_landing", ModConfigs.fallingBlockLanding);
             jo.addProperty("ghast_swell", ModConfigs.ghastSwell);
+            jo.addProperty("wither_yaw_fix", ModConfigs.witherYawFix);
             Files.writeString(path, GSON.toJson(jo));
 
         } catch (Exception ex) {

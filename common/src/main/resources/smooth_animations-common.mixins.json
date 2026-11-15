@@ -18,6 +18,7 @@
   ],
   "mixins": [
     "BodyRotationControlMixin",
+    "FlyingMoveControlMixin",
     "GhastMixin",
     "GhastShootFireballGoalMixin",
     "LookControlMixin",
