@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public abstract class ClientPacketListenerMixin {
 
     @ModifyArg(method = {"handleTeleportEntity", "handleMoveEntity"}, index = 5,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpTo(DDDFFI)V"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpTo(DDDFFIZ)V"))
     private int smoothAnim$stopTPLerp(int steps) {
         return SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer()) ? 1 : steps;
     }
