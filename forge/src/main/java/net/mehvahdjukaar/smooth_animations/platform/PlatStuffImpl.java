@@ -2,35 +2,46 @@ package net.mehvahdjukaar.smooth_animations.platform;
 
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.mehvahdjukaar.smooth_animations.SmoothAnimations;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.config.ModConfigEvent;
-import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
+import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class PlatStuffImpl {
 
-    public static <T extends CustomPacketPayload> void registerClientBoundPayload(CustomPacketPayload.Type<T> type,
-                                                                                  StreamCodec<? super RegistryFriendlyByteBuf, T> codec,
-                                                                                  Consumer<T> handler) {
-        IEventBus bus = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow().getEventBus();
-        bus.addListener(RegisterPayloadHandlersEvent.class, event -> event.registrar("1").optional()
-                .playToClient(type, codec, (payload, context) -> handler.accept(payload)));
+    //using acceptMissingOr so vanilla clients can still join over lan
+    private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(SmoothAnimations.res("network"),
+            () -> "1", NetworkRegistry.acceptMissingOr("1"), NetworkRegistry.acceptMissingOr("1"));
+    private static int messageId = 0;
+
+    public static <T> void registerClientBoundMessage(ResourceLocation id, Class<T> type, BiConsumer<T, FriendlyByteBuf> encoder,
+                                                      Function<FriendlyByteBuf, T> decoder, Consumer<T> handler) {
+        CHANNEL.registerMessage(messageId++, type, encoder, decoder, (message, context) -> {
+            context.get().enqueueWork(() -> handler.accept(message));
+            context.get().setPacketHandled(true);
+        }, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+    }
+
+    public static Packet<?> toClientBoundPacket(Object message) {
+        return CHANNEL.toVanillaPacket(message, NetworkDirection.PLAY_TO_CLIENT);
     }
 
 
     public static void registerConfigs() {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         var entityRotation = builder.comment("Fixes entity bodies rotating choppily when head rotates")
                 .define("smooth_rotations", true);
         var fallingBlocks = builder.comment("Smooth transition for falling block entity to block transformation")
@@ -45,15 +56,9 @@ public class PlatStuffImpl {
                 .define("wither_model_fix", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
                 .define("pitch_lerp_fix", true);
-        ModConfigSpec spec = builder.build();
-        ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
+        ForgeConfigSpec spec = builder.build();
 //TODO: addmore
-        c.registerConfig(ModConfig.Type.COMMON, spec);
-
-
-        if (FMLEnvironment.dist.isClient()) {
-            c.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        }
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, spec);
 
         Runnable refresh = () -> {
             ModConfigs.entityRotationFix = entityRotation.get();
@@ -65,13 +70,14 @@ public class PlatStuffImpl {
             ModConfigs.pitchLerpFix = pitchLerp.get();
         };
 
-        IEventBus bus = c.getEventBus();
-        bus.addListener(ModConfigEvent.Loading.class, e -> {
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        bus.addListener((ModConfigEvent.Loading e) -> {
             if (e.getConfig().getSpec() == spec) {
                 refresh.run();
             }
         });
-        bus.addListener(ModConfigEvent.Reloading.class, e -> {
+        bus.addListener((ModConfigEvent.Reloading e) -> {
             if (e.getConfig().getSpec() == spec) {
                 refresh.run();
             }

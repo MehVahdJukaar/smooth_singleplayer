@@ -5,9 +5,9 @@ import net.mehvahdjukaar.smooth_animations.PlatStuff;
 public class ModNetworking {
 
     public static void init() {
-        PlatStuff.registerClientBoundPayload(ClientBoundNotifyServerTickDoneMessage.TYPE,
-                ClientBoundNotifyServerTickDoneMessage.CODEC, ClientBoundNotifyServerTickDoneMessage::handle);
-        PlatStuff.registerClientBoundPayload(ClientBoundGhastChargingMessage.TYPE,
-                ClientBoundGhastChargingMessage.CODEC, ClientBoundGhastChargingMessage::handle);
+        PlatStuff.registerClientBoundMessage(ClientBoundNotifyServerTickDoneMessage.ID, ClientBoundNotifyServerTickDoneMessage.class,
+                ClientBoundNotifyServerTickDoneMessage::write, ClientBoundNotifyServerTickDoneMessage::read, ClientBoundNotifyServerTickDoneMessage::handle);
+        PlatStuff.registerClientBoundMessage(ClientBoundGhastChargingMessage.ID, ClientBoundGhastChargingMessage.class,
+                ClientBoundGhastChargingMessage::write, ClientBoundGhastChargingMessage::new, ClientBoundGhastChargingMessage::handle);
     }
 }

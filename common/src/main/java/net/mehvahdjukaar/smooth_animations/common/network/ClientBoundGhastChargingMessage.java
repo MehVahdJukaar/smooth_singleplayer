@@ -4,22 +4,20 @@ import net.mehvahdjukaar.smooth_animations.SmoothAnimations;
 import net.mehvahdjukaar.smooth_animations.common.SwellingGhast;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 
-public record ClientBoundGhastChargingMessage(int entityId, boolean charging) implements CustomPacketPayload {
+public record ClientBoundGhastChargingMessage(int entityId, boolean charging) {
 
-    public static final Type<ClientBoundGhastChargingMessage> TYPE = new Type<>(SmoothAnimations.res("s2c_ghast_charging"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ClientBoundGhastChargingMessage> CODEC = StreamCodec.composite(
-            ByteBufCodecs.VAR_INT, ClientBoundGhastChargingMessage::entityId,
-            ByteBufCodecs.BOOL, ClientBoundGhastChargingMessage::charging,
-            ClientBoundGhastChargingMessage::new);
+    public static final ResourceLocation ID = SmoothAnimations.res("s2c_ghast_charging");
 
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return TYPE;
+    public ClientBoundGhastChargingMessage(FriendlyByteBuf buf) {
+        this(buf.readVarInt(), buf.readBoolean());
+    }
+
+    public void write(FriendlyByteBuf buf) {
+        buf.writeVarInt(entityId);
+        buf.writeBoolean(charging);
     }
 
     public void handle() {
