@@ -37,6 +37,8 @@ public class PlatStuffImpl {
                 .define("smooth_falling_block_landing", true);
         var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0")
                 .define("ghast_swell", true);
+        var ghastMouthFireball = builder.comment("Ghast fireballs come out of the mouth instead of its eyes")
+                .define("ghast_mouth_fireball", true);
         var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
                 .define("wither_yaw_fix", true);
         var witherModelFix = builder.comment("Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated")
@@ -55,6 +57,7 @@ public class PlatStuffImpl {
             ModConfigs.entityRotationFix = entityRotation.get();
             ModConfigs.fallingBlockLanding = fallingBlocks.get();
             ModConfigs.ghastSwell = ghastSwell.get();
+            ModConfigs.ghastMouthFireball = ghastMouthFireball.get();
             ModConfigs.witherYawFix = witherYaw.get();
             ModConfigs.witherModelFix = witherModelFix.get();
         };
