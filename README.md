@@ -1,11 +1,11 @@
 # Singleplayer Jitter Fix: Smooth Entity Animations
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="31%" alt="Falling blocks"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="31%" alt="Mob turning"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="31%" alt="Mob movement">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="23%" alt="Falling blocks"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="23%" alt="Mob turning"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="23%" alt="Mob movement"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/hitbox.gif" width="23%" alt="Hitboxes">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="31%" alt="Projectiles"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/ghast.gif" width="31%" alt="Ghast swell"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/wither_heads.gif" width="31%" alt="Wither heads">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="23%" alt="Projectiles"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/ghast.gif" width="23%" alt="Ghast swell"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/wither_heads.gif" width="23%" alt="Wither heads">
 </p>
 
 Ever since beta 1.3 the game has been PLAGUED by this very controlversion change: The client- serveer split.
@@ -14,7 +14,7 @@ If you dont know even on singleplayer your client runs a internal SERVER!
 
 This causes a slew of desyncs and jittery behavior that is completley avoidable in single player.
 
-This mod is simple in scope and simply addresses this issue with a series of targeted chanfes that fix all known smoothness issues.
+This mod is simple in scope and simply addresses this issue with a series of targeted chanfes that fix all known smoothness issues that have bothered me.
 
 ## Changes:
 
@@ -28,9 +28,9 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   Fixes withers shaking left and right when chasing a far target (MC-272049)
 *   Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated
 
-## Multiplayer
+## What also works in Multiplayer
 
-| feature | multiplayer |
+| feature | works in multiplayer |
 |---|---|
 | client/server tick lockstep | no |
 | fresh positions every tick | no |
