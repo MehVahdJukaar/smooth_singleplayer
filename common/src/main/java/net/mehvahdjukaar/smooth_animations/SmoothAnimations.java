@@ -18,8 +18,7 @@ public class SmoothAnimations {
         ModNetworking.init();
         PlatStuff.registerConfigs();
 
-        //TODO: wither side heads arent interpolated right
-        //also ther was the sheep bug we found from goated
+        //TODO: the sheep bug we found from goated
 
         //also might want to scout other animation bugs
     }

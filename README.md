@@ -18,5 +18,25 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   All entities "send" their position every tick. this means they are always 1 tick behind as opposed to several in vanilla
 *   Fixes entities spawned in wrong phase staritng on client with a wrong position causing entity snapback when server updates them
 *   Fixes falling blocks disappearing as soon as the block is placed. Now they disappear when the chunk mesh has hpdated instead, perfectluy smooth.
+*   Mob bodies follow the head every tick with an eased catch up instead of snapping every 15 degrees. Heads slow down near their look target
+*   Partial tick gets recomputed after the client tick runs so frames that run a tick aren't drawn in the past
+*   Brings back the ghast swelling up before shooting, gone since beta 1.3 (MC-165038)
+*   Fixes withers shaking left and right when chasing a far target (MC-272049)
+*   Wither side heads are now interpolated, vanilla only moves them once per tick
+
+## Multiplayer
+
+| feature | multiplayer |
+|---|---|
+| client/server tick lockstep | no |
+| fresh positions every tick | no |
+| projectiles fired from AI | yes, needs mod on server |
+| falling block landing | yes |
+| mob bodies | yes |
+| mob heads | yes, needs mod on server |
+| partial tick catch up | yes |
+| ghast swell | yes |
+| wither yaw fix | yes, needs mod on server |
+| wither side heads | yes |
 
 ![meme](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/tick_sync_meme.png)

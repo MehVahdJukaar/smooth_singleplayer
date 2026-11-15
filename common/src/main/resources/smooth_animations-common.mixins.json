@@ -14,7 +14,8 @@
     "MinecraftMixin",
     "MinecraftServerMixin",
     "RenderChunkRegionMixin",
-    "ServerLevelMixin"
+    "ServerLevelMixin",
+    "WitherBossModelMixin"
   ],
   "mixins": [
     "BodyRotationControlMixin",
