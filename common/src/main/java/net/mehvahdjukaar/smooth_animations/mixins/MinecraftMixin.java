@@ -4,8 +4,8 @@ import net.mehvahdjukaar.smooth_animations.SmoothAnimations;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.mehvahdjukaar.smooth_animations.client.FrameTimeCatchUp;
 import net.minecraft.Util;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Timer;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
@@ -28,7 +28,7 @@ public abstract class MinecraftMixin {
     public LocalPlayer player;
     @Shadow
     @Final
-    private DeltaTracker.Timer timer;
+    private Timer timer;
 
     @Shadow
     @Nullable
@@ -37,8 +37,7 @@ public abstract class MinecraftMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void ss$waitForServerTick(CallbackInfo ci) {
         IntegratedServer server = getSingleplayerServer();
-        boolean canSync = SinglePlayerTickManager.isTrueSinglePlayer(server) && level != null && player != null
-                && !server.tickRateManager().isSprinting();
+        boolean canSync = SinglePlayerTickManager.isTrueSinglePlayer(server) && level != null && player != null;
         if (!canSync) {
             //no longer in single player
             SinglePlayerTickManager.disableClientTickDrive();

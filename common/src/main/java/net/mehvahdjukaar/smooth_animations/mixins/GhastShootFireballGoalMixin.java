@@ -3,8 +3,8 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
+import net.mehvahdjukaar.smooth_animations.PlatStuff;
 import net.mehvahdjukaar.smooth_animations.common.network.ClientBoundGhastChargingMessage;
-import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.monster.Ghast;
 import org.spongepowered.asm.mixin.Final;
@@ -52,7 +52,7 @@ public abstract class GhastShootFireballGoalMixin {
     }
 
     @ModifyArg(method = "tick", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/phys/Vec3;<init>(DDD)V"), index = 1)
+            target = "Lnet/minecraft/world/entity/projectile/LargeFireball;<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;DDDI)V"), index = 3)
     private double smoothAnim$aimFromMouth(double dy) {
         if (!ModConfigs.ghastMouthFireball) return dy;
         return dy + ghast.getY(0.5) + 0.5 - (ghast.getY() + ss$FIREBALL_Y_AT_MOUTH);
@@ -71,7 +71,7 @@ public abstract class GhastShootFireballGoalMixin {
     private void ss$sendCharging(boolean rising) {
         ss$rising = rising;
         ((ServerLevel) ghast.level()).getChunkSource().broadcast(ghast,
-                new ClientboundCustomPayloadPacket(new ClientBoundGhastChargingMessage(ghast.getId(), rising)));
+                PlatStuff.toClientBoundPacket(new ClientBoundGhastChargingMessage(ghast.getId(), rising)));
     }
 
 }
