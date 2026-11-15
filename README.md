@@ -37,6 +37,6 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 | partial tick catch up | yes |
 | ghast swell | yes |
 | wither yaw fix | yes, needs mod on server |
-| wither side heads | yes |
+| wither model fixes | yes |
 
 ![meme](https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/tick_sync_meme.png)
