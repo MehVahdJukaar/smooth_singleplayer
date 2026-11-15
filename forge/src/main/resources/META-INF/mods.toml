@@ -1,13 +1,8 @@
 modLoader = "javafml"
-loaderVersion = "*"
+loaderVersion = "[47,)"
 
 license = "${mod_license}"
 issueTrackerURL = "${mod_github}/issues"
-
-[[mixins]]
-    config = "${mod_id}.mixins.json"
-[[mixins]]
-    config = "${mod_id}-common.mixins.json"
 
 [[mods]]
     modId = "${mod_id}"
@@ -20,7 +15,7 @@ issueTrackerURL = "${mod_github}/issues"
     logoFile = "icon.png"
 
 [[dependencies.${mod_id}]]
-    modId = "neoforge"
+    modId = "forge"
     type = "required"
     versionRange = "*"
     ordering = "NONE"

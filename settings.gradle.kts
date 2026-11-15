@@ -16,4 +16,4 @@ configure<HelperExtension> {
     versionStrategy.set(ResolutionStrategy.NONE)
 }
 
-include("common", "fabric", "neoforge")
+include("common", "fabric", "forge")

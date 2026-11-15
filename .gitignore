@@ -18,6 +18,6 @@ classes/
 *.launch
 /common/build/
 /fabric/build/
-/neoforge/build/
+/forge/build/
 
 /build/

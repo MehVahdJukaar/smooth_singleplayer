@@ -8,5 +8,5 @@ fabric {
 }
 
 dependencies {
-    modRuntimeOnly("maven.modrinth:sodium:mc1.21.1-0.8.12-fabric")
+    modRuntimeOnly("maven.modrinth:sodium:mc1.20.1-0.5.13-fabric")
 }
