@@ -1,1 +1,2 @@
-- added a simple config file
+- added back and tweaked (improved) the animation of a ghast shooting like in 1.2.5
+- fixed a bug where wither flickers its yaw
