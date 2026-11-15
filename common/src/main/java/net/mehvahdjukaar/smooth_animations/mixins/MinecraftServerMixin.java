@@ -18,7 +18,7 @@ import java.util.function.BooleanSupplier;
 public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<TickTask> {
 
     @Shadow
-    private long nextTickTimeNanos;
+    protected long nextTickTime;
 
     protected MinecraftServerMixin(String name) {
         super(name);
@@ -34,7 +34,7 @@ public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<T
         //same deal as the client
         this.managedBlock(() -> SinglePlayerTickManager.tryStartServerTick() || System.nanoTime() > giveUpAt);
         //the client sets the pace now. hyjacks this otherwise server thinks its behind and spams cant keep up..
-        this.nextTickTimeNanos = Util.getNanos();
+        this.nextTickTime = Util.getMillis();
         ci.cancel();
     }
 

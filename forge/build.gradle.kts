@@ -11,3 +11,7 @@ forge {
 mixin {
     config("smooth_animations-common.mixins.json")
 }
+
+tasks.named("compileJava") {
+    dependsOn(":common:candleLightTransform")
+}

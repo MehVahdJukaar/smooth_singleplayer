@@ -19,6 +19,6 @@ public abstract class LookControlMixin {
         }
         //attepts making head animation less harsh. make configrable
         float remaining = Math.abs(Mth.degreesDifference(from, to));
-        return Math.clamp(remaining * 0.5f, Math.min(1, maxDelta), maxDelta);
+        return Mth.clamp(remaining * 0.5f, Math.min(1, maxDelta), maxDelta);
     }
 }

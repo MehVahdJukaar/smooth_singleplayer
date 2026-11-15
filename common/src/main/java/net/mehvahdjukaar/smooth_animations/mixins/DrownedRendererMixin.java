@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(DrownedRenderer.class)
 public abstract class DrownedRendererMixin {
 
-    @ModifyExpressionValue(method = "setupRotations(Lnet/minecraft/world/entity/monster/Drowned;Lcom/mojang/blaze3d/vertex/PoseStack;FFFF)V",
+    @ModifyExpressionValue(method = "setupRotations(Lnet/minecraft/world/entity/monster/Drowned;Lcom/mojang/blaze3d/vertex/PoseStack;FFF)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Drowned;getXRot()F"))
     private float smoothSP$lerpSwimPitch(float pitch, Drowned drowned, PoseStack poseStack, float bob,
                                          float yBodyRot, float partialTick) {
