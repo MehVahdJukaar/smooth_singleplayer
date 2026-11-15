@@ -7,6 +7,7 @@
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
     "DeltaTrackerTimerMixin",
+    "DrownedRendererMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
     "GhastRendererMixin",
@@ -15,6 +16,7 @@
     "MinecraftServerMixin",
     "RenderChunkRegionMixin",
     "ServerLevelMixin",
+    "SheepMixin",
     "WitherBossModelMixin"
   ],
   "mixins": [

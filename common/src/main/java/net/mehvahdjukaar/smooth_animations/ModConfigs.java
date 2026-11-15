@@ -8,4 +8,5 @@ public class ModConfigs {
     public static boolean ghastMouthFireball = true;
     public static boolean witherYawFix = true;
     public static boolean witherModelFix = true;
+    public static boolean pitchLerpFix = true;
 }

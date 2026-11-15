@@ -18,8 +18,6 @@ public class SmoothAnimations {
         ModNetworking.init();
         PlatStuff.registerConfigs();
 
-        //TODO: the sheep bug we found from goated
-
         //also might want to scout other animation bugs
     }
 }

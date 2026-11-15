@@ -42,7 +42,7 @@ public abstract class GhastShootFireballGoalMixin {
 
 
     @Unique
-    private static final double ss$FIREBALL_Y_AT_MOUTH = 0.125;
+    private static final double ss$FIREBALL_Y_AT_MOUTH = 0.1275;
 
     @ModifyArg(method = "tick", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/entity/projectile/LargeFireball;setPos(DDD)V"), index = 1)
