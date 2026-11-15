@@ -1,7 +1,11 @@
 # Singleplayer Jitter Fix: Smooth Entity Animations
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="23%" alt="Falling blocks"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="23%" alt="Mob turning"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="23%" alt="Mob movement"> <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="23%" alt="Projectiles">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/sand.gif" width="31%" alt="Falling blocks"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/piglin.gif" width="31%" alt="Mob turning"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/chicken.gif" width="31%" alt="Mob movement">
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/snowball.gif" width="31%" alt="Projectiles"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/ghast.gif" width="31%" alt="Ghast swell"> &nbsp; <img src="https://raw.githubusercontent.com/MehVahdJukaar/mod_pages/master/assets/media/singleplayer-jitter-fix/wither_heads.gif" width="31%" alt="Wither heads">
 </p>
 
 Ever since beta 1.3 the game has been PLAGUED by this very controlversion change: The client- serveer split.
