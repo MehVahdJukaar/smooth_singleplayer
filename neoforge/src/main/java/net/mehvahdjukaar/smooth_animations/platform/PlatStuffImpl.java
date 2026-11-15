@@ -39,6 +39,8 @@ public class PlatStuffImpl {
                 .define("ghast_swell", true);
         var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
                 .define("wither_yaw_fix", true);
+        var witherModelFix = builder.comment("Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated")
+                .define("wither_model_fix", true);
         ModConfigSpec spec = builder.build();
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore
@@ -54,6 +56,7 @@ public class PlatStuffImpl {
             ModConfigs.fallingBlockLanding = fallingBlocks.get();
             ModConfigs.ghastSwell = ghastSwell.get();
             ModConfigs.witherYawFix = witherYaw.get();
+            ModConfigs.witherModelFix = witherModelFix.get();
         };
 
         IEventBus bus = c.getEventBus();

@@ -20,9 +20,9 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   Fixes falling blocks disappearing as soon as the block is placed. Now they disappear when the chunk mesh has hpdated instead, perfectluy smooth.
 *   Mob bodies follow the head every tick with an eased catch up instead of snapping every 15 degrees. Heads slow down near their look target
 *   Partial tick gets recomputed after the client tick runs so frames that run a tick aren't drawn in the past
-*   Brings back the ghast swelling up before shooting, gone since beta 1.3 (MC-165038)
+*   Brings back & improves the ghast swelling up before shooting, gone since beta 1.3 (MC-165038)
 *   Fixes withers shaking left and right when chasing a far target (MC-272049)
-*   Wither side heads are now interpolated, vanilla only moves them once per tick
+*   Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated
 
 ## Multiplayer
 
