@@ -14,7 +14,6 @@ public abstract class RenderChunkRegionMixin {
 
     @ModifyReturnValue(method = "getBlockState", at = @At("RETURN"))
     private BlockState ss$hideLandingFallingBlocks(BlockState original, BlockPos pos) {
-        //TODO: steal from a good place to make it work on sodium
         return BlockMeshHider.isHidden(pos) ? Blocks.AIR.defaultBlockState() : original;
     }
 }
