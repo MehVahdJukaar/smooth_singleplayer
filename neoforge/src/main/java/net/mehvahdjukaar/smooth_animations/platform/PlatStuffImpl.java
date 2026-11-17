@@ -55,7 +55,7 @@ public class PlatStuffImpl {
         c.registerConfig(ModConfig.Type.COMMON, spec);
 
 
-        if (FMLEnvironment.dist.isClient()) {
+        if (FMLEnvironment.getDist().isClient()) {
             c.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         }
 

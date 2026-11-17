@@ -22,7 +22,7 @@ public class PlatStuffImpl {
     public static <T extends CustomPacketPayload> void registerClientBoundPayload(CustomPacketPayload.Type<T> type,
                                                                                   StreamCodec<? super RegistryFriendlyByteBuf, T> codec,
                                                                                   Consumer<T> handler) {
-        PayloadTypeRegistry.playS2C().register(type, codec);
+        PayloadTypeRegistry.clientboundPlay().register(type, codec);
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             PlatStuffClient.registerReceiver(type, handler);
         }
