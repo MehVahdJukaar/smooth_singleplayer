@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.common;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.chunk.CompiledSectionMesh;
 import net.minecraft.client.renderer.chunk.SectionMesh;
 import net.minecraft.client.renderer.chunk.SectionRenderDispatcher;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,8 @@ public record LandingData(BlockPos pos, @Nullable SectionRenderDispatcher.Render
 
     public boolean isNoLongerWaitingMesh() {
         //eotjer mp section exits or compiled is new
-        return section == null || section.sectionMesh.get() != oldMesh;
+        if (section == null || section.sectionMesh.get() != oldMesh) return true;
+        //sodium leaves vanilla sections like this forever
+        return oldMesh == CompiledSectionMesh.UNCOMPILED;
     }
 }
