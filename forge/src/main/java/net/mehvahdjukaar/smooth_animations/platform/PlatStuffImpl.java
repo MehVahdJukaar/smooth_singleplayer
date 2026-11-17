@@ -47,7 +47,7 @@ public class PlatStuffImpl {
         var fallingBlocks = builder.comment("Smooth transition for falling block entity to block transformation")
                 .define("smooth_falling_block_landing", true);
         var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0. VANILLA squashes them like 1.2.5, SWELL also stretches them up so they look like they're taking in air")
-                .defineEnum("ghast_swell", ModConfigs.GhastSwell.SWELL);
+                .defineEnum("ghast_swell", ModConfigs.GhastSwell.VANILLA);
         var ghastMouthFireball = builder.comment("Ghast fireballs come out of the mouth instead of its eyes")
                 .define("ghast_mouth_fireball", true);
         var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
