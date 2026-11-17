@@ -59,11 +59,18 @@ subprojects {
         forEach {
             changelog = rootProject.file("changelog.md").readText()
             versionName = "${mod.id.get()}-${mod.version.get()}-${project.name}"
+            minecraftVersions.set(listOf("26.1", "26.1.1", "26.1.2"))
         }
     }
 
     tasks.withType<JavaCompile> {
         options.compilerArgs.addAll(listOf("-Xmaxerrs", "4000"))
+        options.release.set(25)
+    }
+
+    configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
 
@@ -84,5 +91,9 @@ subprojects {
         maven { url = uri("https://maven.neoforged.net") }
 
         maven { url = uri("https://api.modrinth.com/maven") } // Modrinth (Sodium, etc.)
+        maven {
+            url = uri("https://www.cursemaven.com")
+            isAllowInsecureProtocol = true
+        }
     }
 }
