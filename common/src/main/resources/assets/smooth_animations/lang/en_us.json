@@ -7,5 +7,6 @@
   "smooth_animations.configuration.wither_yaw_fix": "Wither Yaw Fix",
   "smooth_animations.configuration.wither_model_fix": "Wither Model Fix",
   "smooth_animations.configuration.pitch_lerp_fix": "Sheep And Drowned Pitch Lerp",
-  "smooth_animations.configuration.debug_server_hitboxes": "Show Server Hitboxes (Debug)"
+  "smooth_animations.configuration.debug_server_hitboxes": "Show Server Hitboxes (Debug)",
+  "smooth_animations.configuration.zero_tick_entity_sync": "Zero Tick Entity Sync"
 }

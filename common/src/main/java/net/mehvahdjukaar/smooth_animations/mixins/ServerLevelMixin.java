@@ -9,8 +9,10 @@ import net.minecraft.world.level.entity.EntityTickList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 @Mixin(ServerLevel.class)
@@ -28,6 +30,11 @@ public abstract class ServerLevelMixin {
     @Inject(method = "addFreshEntity", at = @At("RETURN"))
     private void smoothAnim$trackMidTickSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValueZ()) SinglePlayerTickManager.onServerEntityAdded(entity);
+    }
+
+    @Inject(method = "tick", at = @At("RETURN"))
+    private void smoothAnim$sendDeferredEntitySyncs(BooleanSupplier hasTimeLeft, CallbackInfo ci) {
+        SinglePlayerTickManager.sendDeferredSyncs();
     }
 
 }

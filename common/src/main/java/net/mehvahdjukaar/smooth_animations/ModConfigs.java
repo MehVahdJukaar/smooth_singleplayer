@@ -10,4 +10,5 @@ public class ModConfigs {
     public static boolean witherModelFix = true;
     public static boolean pitchLerpFix = true;
     public static boolean showServerHitboxes = false;
+    public static boolean zeroTickEntitySync = false;
 }
