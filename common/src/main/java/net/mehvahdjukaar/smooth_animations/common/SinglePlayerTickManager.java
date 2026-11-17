@@ -1,10 +1,16 @@
 package net.mehvahdjukaar.smooth_animations.common;
 
+import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.Boat;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
@@ -89,5 +95,41 @@ public class SinglePlayerTickManager {
 
     public static void clearSpawnedMidEntityTick() {
         spawnedMidEntityTick.clear();
+    }
+
+    //sketchy 0 ticking logic
+
+    //vanilla sends entity changes before entities tick so whatever client gets is from last tick
+    private static final List<ServerEntity> deferredSendChanges = new ArrayList<>();
+    private static boolean sendingDeferredChanges;
+
+    public static boolean shouldDeferSetChanges(ServerEntity serverEntity, Entity entity) {
+        if (sendingDeferredChanges || !clientDrivesTicks || !ModConfigs.zeroTickEntitySync) {
+            return false;
+        }
+        //todo: add helper for comomon usage
+        boolean lerped = entity instanceof LivingEntity || entity instanceof AbstractMinecart || entity instanceof Boat;
+        if (!lerped) {
+            return false;
+        }
+        deferredSendChanges.add(serverEntity);
+        return true;
+    }
+
+    public static boolean isSendingDeferredChanges() {
+        return sendingDeferredChanges;
+    }
+
+    public static void sendDeferredSyncs() {
+        if (deferredSendChanges.isEmpty()) {
+            return;
+        }
+        sendingDeferredChanges = true;
+        for (ServerEntity se : deferredSendChanges) {
+            se.sendChanges();
+        }
+        sendingDeferredChanges = false;
+
+        deferredSendChanges.clear();
     }
 }

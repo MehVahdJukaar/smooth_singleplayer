@@ -56,8 +56,10 @@ public class PlatStuffImpl {
                 .define("wither_model_fix", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
                 .define("pitch_lerp_fix", true);
-        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity")
+        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity. Render might jitter a as it's not interpolated")
                 .define("debug_server_hitboxes", false);
+        var tickSync = builder.comment("Sends entity positions AFTER they move instead ov before like vanilla does. This makes the server and client agree on their position EXACTLY (instead of being 1 tick behind). Projectiles and similar are unaffected and still client driven. Default off as it could be a bit more invasive, turn on for perfect sync")
+                .define("zero_tick_entity_sync", false);
         ForgeConfigSpec spec = builder.build();
 //TODO: addmore
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, spec);
@@ -71,6 +73,7 @@ public class PlatStuffImpl {
             ModConfigs.witherModelFix = witherModelFix.get();
             ModConfigs.pitchLerpFix = pitchLerp.get();
             ModConfigs.showServerHitboxes = serverHitboxes.get();
+            ModConfigs.zeroTickEntitySync = tickSync.get();
         };
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
