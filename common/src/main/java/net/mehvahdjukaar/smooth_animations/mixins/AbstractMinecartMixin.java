@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
+import net.mehvahdjukaar.smooth_animations.common.LerpedOnClient;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -10,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractMinecart.class)
-public abstract class AbstractMinecartMixin {
+public abstract class AbstractMinecartMixin implements LerpedOnClient {
 
     @Shadow
     private int lSteps;

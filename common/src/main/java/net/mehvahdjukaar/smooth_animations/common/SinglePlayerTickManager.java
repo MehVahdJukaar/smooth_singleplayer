@@ -5,8 +5,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.Boat;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -108,7 +106,7 @@ public class SinglePlayerTickManager {
             return false;
         }
         //todo: add helper for comomon usage
-        boolean lerped = entity instanceof LivingEntity || entity instanceof AbstractMinecart || entity instanceof Boat;
+        boolean lerped = entity instanceof LivingEntity || entity instanceof LerpedOnClient;
         if (!lerped) {
             return false;
         }
