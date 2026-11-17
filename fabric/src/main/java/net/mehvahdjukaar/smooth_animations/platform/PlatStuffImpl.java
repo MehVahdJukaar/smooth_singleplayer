@@ -39,9 +39,9 @@ public class PlatStuffImpl {
             ModConfigs.fallingBlockLanding = GsonHelper.getAsBoolean(jo, "falling_block_landing", true);
             ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "entity_rotation_fix", true);
             try {
-                ModConfigs.ghastSwell = ModConfigs.GhastSwell.valueOf(GsonHelper.getAsString(jo, "ghast_swell", "swell").toUpperCase(Locale.ROOT));
+                ModConfigs.ghastSwell = ModConfigs.GhastSwell.valueOf(GsonHelper.getAsString(jo, "ghast_swell", "vanilla").toUpperCase(Locale.ROOT));
             } catch (IllegalArgumentException e) {
-                ModConfigs.ghastSwell = ModConfigs.GhastSwell.SWELL;
+                ModConfigs.ghastSwell = ModConfigs.GhastSwell.VANILLA;
             }
             ModConfigs.ghastMouthFireball = GsonHelper.getAsBoolean(jo, "ghast_mouth_fireball", true);
             ModConfigs.witherYawFix = GsonHelper.getAsBoolean(jo, "wither_yaw_fix", true);
