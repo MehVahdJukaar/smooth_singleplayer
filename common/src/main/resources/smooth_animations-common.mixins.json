@@ -4,10 +4,13 @@
   "package": "net.mehvahdjukaar.smooth_animations.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "AbstractMinecartMixin",
+    "BoatMixin",
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
     "TimerMixin",
     "DrownedRendererMixin",
+    "EntityRenderDispatcherMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
     "GhastRendererMixin",

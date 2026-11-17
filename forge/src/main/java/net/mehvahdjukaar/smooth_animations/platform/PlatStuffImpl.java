@@ -56,6 +56,8 @@ public class PlatStuffImpl {
                 .define("wither_model_fix", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
                 .define("pitch_lerp_fix", true);
+        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity")
+                .define("debug_server_hitboxes", false);
         ForgeConfigSpec spec = builder.build();
 //TODO: addmore
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, spec);
@@ -68,6 +70,7 @@ public class PlatStuffImpl {
             ModConfigs.witherYawFix = witherYaw.get();
             ModConfigs.witherModelFix = witherModelFix.get();
             ModConfigs.pitchLerpFix = pitchLerp.get();
+            ModConfigs.showServerHitboxes = serverHitboxes.get();
         };
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

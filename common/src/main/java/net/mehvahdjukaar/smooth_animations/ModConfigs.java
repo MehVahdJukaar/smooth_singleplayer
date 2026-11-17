@@ -9,4 +9,5 @@ public class ModConfigs {
     public static boolean witherYawFix = true;
     public static boolean witherModelFix = true;
     public static boolean pitchLerpFix = true;
+    public static boolean showServerHitboxes = false;
 }
