@@ -4,7 +4,7 @@ public class ModConfigs {
 
     public static boolean entityRotationFix = true;
     public static boolean fallingBlockLanding = true;
-    public static GhastSwell ghastSwell = GhastSwell.SWELL;
+    public static GhastSwell ghastSwell = GhastSwell.VANILLA;
     public static boolean ghastMouthFireball = true;
     public static boolean witherYawFix = true;
     public static boolean witherModelFix = true;
