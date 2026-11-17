@@ -8,7 +8,7 @@ import net.minecraft.world.entity.monster.Drowned;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(DrownedRenderer.class)
+@Mixin(value = DrownedRenderer.class, priority = 1001)
 public abstract class DrownedRendererMixin {
 
     @ModifyExpressionValue(method = "setupRotations(Lnet/minecraft/world/entity/monster/Drowned;Lcom/mojang/blaze3d/vertex/PoseStack;FFF)V",
