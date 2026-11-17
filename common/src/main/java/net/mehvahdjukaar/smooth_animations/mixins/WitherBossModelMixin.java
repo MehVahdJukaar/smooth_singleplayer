@@ -2,13 +2,14 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
-import net.minecraft.client.model.WitherBossModel;
+import net.minecraft.client.model.monster.wither.WitherBossModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.WitherRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import org.spongepowered.asm.mixin.Final;
@@ -30,18 +31,15 @@ public abstract class WitherBossModelMixin {
     @Final
     private ModelPart leftHead;
 
-    @Inject(method = "prepareMobModel(Lnet/minecraft/world/entity/boss/wither/WitherBoss;FFF)V", at = @At("TAIL"))
-    private void smootAnim$lerpSideHeads(WitherBoss wither, float limbSwing, float limbSwingAmount, float partialTick, CallbackInfo ci) {
+    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WitherRenderState;)V", at = @At("TAIL"))
+    private void smootAnim$swapSideHeads(WitherRenderState state, CallbackInfo ci) {
         if (!ModConfigs.witherModelFix) return;
 
-        //vanilla keeps old head rots around and then never uses them
-        float bodyRot = Mth.rotLerp(partialTick, wither.yBodyRotO, wither.yBodyRot);
         for (int i = 0; i < 2; i++) {
-
             //getHeadX puts head 1 on left side, vanilla draws it on the right one
             ModelPart head = i == 0 ? leftHead : rightHead;
-            head.yRot = (Mth.rotLerp(partialTick, wither.yRotOHeads[i], wither.yRotHeads[i]) - bodyRot) * Mth.DEG_TO_RAD;
-            head.xRot = Mth.lerp(partialTick, wither.xRotOHeads[i], wither.xRotHeads[i]) * Mth.DEG_TO_RAD;
+            head.yRot = (state.yHeadRots[i] - state.bodyRot) * Mth.DEG_TO_RAD;
+            head.xRot = state.xHeadRots[i] * Mth.DEG_TO_RAD;
         }
     }
 
@@ -78,7 +76,8 @@ public abstract class WitherBossModelMixin {
         partdefinition.addOrReplaceChild("left_head", cubelistbuilder, PartPose.offset(9.0F, 3.0F, -1.0F));
     }
 
-    @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/boss/wither/WitherBoss;FFFFF)V", at = @At(value = "INVOKE",
+
+    @ModifyArg(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WitherRenderState;)V", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/model/geom/ModelPart;setPos(FFF)V"), index = 0)
     private float smoothAnim$centerTail(float x) {
         return ModConfigs.witherModelFix ? -1.5f : x;

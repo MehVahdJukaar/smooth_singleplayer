@@ -45,7 +45,7 @@ public abstract class GhastShootFireballGoalMixin {
     private static final double ss$FIREBALL_Y_AT_MOUTH = 0.1275;
 
     @ModifyArg(method = "tick", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/projectile/LargeFireball;setPos(DDD)V"), index = 1)
+            target = "Lnet/minecraft/world/entity/projectile/hurtingprojectile/LargeFireball;setPos(DDD)V"), index = 1)
     private double smoothAnim$shootFromMouth(double y) {
         if (!ModConfigs.ghastMouthFireball) return y;
         return ghast.getY() + ss$FIREBALL_Y_AT_MOUTH;
@@ -70,7 +70,7 @@ public abstract class GhastShootFireballGoalMixin {
     @Unique
     private void ss$sendCharging(boolean rising) {
         ss$rising = rising;
-        ((ServerLevel) ghast.level()).getChunkSource().broadcast(ghast,
+        ((ServerLevel) ghast.level()).getChunkSource().sendToTrackingPlayers(ghast,
                 new ClientboundCustomPayloadPacket(new ClientBoundGhastChargingMessage(ghast.getId(), rising)));
     }
 
