@@ -15,13 +15,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "net.mehvahdjukaar.snowyspirit.common.entity.SledEntity")
 public abstract class SledEntityMixin implements LerpedOnClient {
 
-    @Shadow
-    private int lerpSteps;
-
-    @Inject(method = "lerpTo", at = @At("TAIL"))
-    private void smoothAnim$useGivenLerpSteps(double x, double y, double z, float yRot, float xRot, int steps, CallbackInfo ci) {
-        if (SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
-            lerpSteps = steps;
-        }
-    }
 }

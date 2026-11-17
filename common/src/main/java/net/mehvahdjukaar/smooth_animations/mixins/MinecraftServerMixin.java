@@ -1,7 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.TickTask;
 import net.minecraft.util.thread.ReentrantBlockableEventLoop;
@@ -20,8 +20,8 @@ public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<T
     @Shadow
     private long nextTickTimeNanos;
 
-    protected MinecraftServerMixin(String name) {
-        super(name);
+    protected MinecraftServerMixin(String name, boolean propagatesCrashes) {
+        super(name, propagatesCrashes);
     }
 
     //TODO: not idea, later change to a better wrap better mixin type.
