@@ -24,7 +24,9 @@
     "SheepMixin",
     "SledEntityMixin",
     "WitherBossModelMixin",
-    "WitherBossRendererMixin"
+    "WitherBossRendererMixin",
+    "sodium.BlockOcclusionCacheMixin",
+    "sodium.BlockRendererMixin"
   ],
   "mixins": [
     "BodyRotationControlMixin",
