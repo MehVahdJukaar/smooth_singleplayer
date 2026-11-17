@@ -17,6 +17,8 @@ public record LandingData(BlockPos pos, @Nullable SectionRenderDispatcher.Render
 
     public boolean isNoLongerWaitingMesh() {
         //eotjer mp section exits or compiled is new
-        return section == null || section.compiled.get() != oldMesh;
+        if (section == null || section.compiled.get() != oldMesh) return true;
+        //sodium leaves vanilla sections like this forever
+        return oldMesh == SectionRenderDispatcher.CompiledSection.UNCOMPILED;
     }
 }
