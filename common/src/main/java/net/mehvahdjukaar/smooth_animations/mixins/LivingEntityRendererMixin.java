@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.mehvahdjukaar.smooth_animations.client.ChargingGhastState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -34,6 +35,10 @@ public abstract class LivingEntityRendererMixin {
         var4 = 1.0F / (var4 * var4 * var4 * var4 * var4 * 2.0F + 1.0F);
         float var5 = (8.0F + var4) / 2.0F;
         float var6 = (8.0F + 1.0F / var4) / 2.0F;
+        if (ModConfigs.ghastSwell == ModConfigs.GhastSwell.SWELL) {
+            //succ
+            var5 = var6;
+        }
         poseStack.scale(var6 / 4.5f, var5 / 4.5f, var6 / 4.5f);
     }
 }

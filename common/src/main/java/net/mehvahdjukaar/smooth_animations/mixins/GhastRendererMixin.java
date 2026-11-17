@@ -18,7 +18,7 @@ public abstract class GhastRendererMixin {
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/Ghast;Lnet/minecraft/client/renderer/entity/state/GhastRenderState;F)V",
             at = @At("TAIL"))
     private void ss$extractCharge(Ghast ghast, GhastRenderState state, float partialTick, CallbackInfo ci) {
-        float charge = ModConfigs.ghastSwell ? ((SwellingGhast) ghast).smoothSP$getChargeAmount(partialTick) : 0;
+        float charge = ModConfigs.ghastSwell != ModConfigs.GhastSwell.OFF ? ((SwellingGhast) ghast).smoothSP$getChargeAmount(partialTick) : 0;
         ((ChargingGhastState) state).smoothSP$setCharge(charge);
     }
 }

@@ -4,11 +4,15 @@ public class ModConfigs {
 
     public static boolean entityRotationFix = true;
     public static boolean fallingBlockLanding = true;
-    public static boolean ghastSwell = true;
+    public static GhastSwell ghastSwell = GhastSwell.SWELL;
     public static boolean ghastMouthFireball = true;
     public static boolean witherYawFix = true;
     public static boolean witherModelFix = true;
     public static boolean pitchLerpFix = true;
     public static boolean showServerHitboxes = false;
     public static boolean zeroTickEntitySync = false;
+
+    public enum GhastSwell {
+        OFF, VANILLA, SWELL
+    }
 }
