@@ -20,6 +20,7 @@
     "RenderChunkRegionMixin",
     "ServerLevelMixin",
     "SheepMixin",
+    "SledEntityMixin",
     "WitherBossModelMixin"
   ],
   "mixins": [

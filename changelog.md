@@ -1,2 +1,3 @@
-- added back and tweaked (improved) the animation of a ghast shooting like in 1.2.5
-- fixed a bug where wither flickers its yaw
+- forced minecraft and boats to not learp for 2 more ticks like they (for some reason) do in vanilla
+- added an option for zero tick, makes client & server positions exactly the same
+- added a config to show server hitbox
