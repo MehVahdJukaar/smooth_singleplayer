@@ -16,7 +16,7 @@ public abstract class GhastRendererMixin {
 
     @Inject(method = "scale(Lnet/minecraft/world/entity/monster/Ghast;Lcom/mojang/blaze3d/vertex/PoseStack;F)V", at = @At("TAIL"))
     private void ss$fixMC165038(Ghast ghast, PoseStack poseStack, float partialTick, CallbackInfo ci) {
-        if (!ModConfigs.ghastSwell) return;
+        if (ModConfigs.ghastSwell == ModConfigs.GhastSwell.OFF) return;
 
         float charge = ((SwellingGhast) ghast).smoothSP$getChargeAmount(partialTick);
         if (charge == 0) {
@@ -32,6 +32,10 @@ public abstract class GhastRendererMixin {
         var4 = 1.0F / (var4 * var4 * var4 * var4 * var4 * 2.0F + 1.0F);
         float var5 = (8.0F + var4) / 2.0F;
         float var6 = (8.0F + 1.0F / var4) / 2.0F;
+        if (ModConfigs.ghastSwell == ModConfigs.GhastSwell.SWELL) {
+            //succ
+            var5 = var6;
+        }
         poseStack.scale(var6 / 4.5f, var5 / 4.5f, var6 / 4.5f);
     }
 }

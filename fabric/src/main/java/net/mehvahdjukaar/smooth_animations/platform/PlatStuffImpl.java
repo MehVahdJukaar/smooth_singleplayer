@@ -15,6 +15,7 @@ import net.minecraft.util.GsonHelper;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public class PlatStuffImpl {
@@ -37,7 +38,11 @@ public class PlatStuffImpl {
 
             ModConfigs.fallingBlockLanding = GsonHelper.getAsBoolean(jo, "falling_block_landing", true);
             ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "entity_rotation_fix", true);
-            ModConfigs.ghastSwell = GsonHelper.getAsBoolean(jo, "ghast_swell", true);
+            try {
+                ModConfigs.ghastSwell = ModConfigs.GhastSwell.valueOf(GsonHelper.getAsString(jo, "ghast_swell", "swell").toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException e) {
+                ModConfigs.ghastSwell = ModConfigs.GhastSwell.SWELL;
+            }
             ModConfigs.ghastMouthFireball = GsonHelper.getAsBoolean(jo, "ghast_mouth_fireball", true);
             ModConfigs.witherYawFix = GsonHelper.getAsBoolean(jo, "wither_yaw_fix", true);
             ModConfigs.witherModelFix = GsonHelper.getAsBoolean(jo, "wither_model_fix", true);
@@ -47,7 +52,7 @@ public class PlatStuffImpl {
 
             jo.addProperty("entity_rotation_fix", ModConfigs.entityRotationFix);
             jo.addProperty("falling_block_landing", ModConfigs.fallingBlockLanding);
-            jo.addProperty("ghast_swell", ModConfigs.ghastSwell);
+            jo.addProperty("ghast_swell", ModConfigs.ghastSwell.name().toLowerCase(Locale.ROOT));
             jo.addProperty("ghast_mouth_fireball", ModConfigs.ghastMouthFireball);
             jo.addProperty("wither_yaw_fix", ModConfigs.witherYawFix);
             jo.addProperty("wither_model_fix", ModConfigs.witherModelFix);
