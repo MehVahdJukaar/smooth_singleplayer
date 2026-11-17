@@ -45,6 +45,8 @@ public class PlatStuffImpl {
                 .define("wither_model_fix", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
                 .define("pitch_lerp_fix", true);
+        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity")
+                .define("debug_server_hitboxes", false);
         ModConfigSpec spec = builder.build();
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore
@@ -63,6 +65,7 @@ public class PlatStuffImpl {
             ModConfigs.witherYawFix = witherYaw.get();
             ModConfigs.witherModelFix = witherModelFix.get();
             ModConfigs.pitchLerpFix = pitchLerp.get();
+            ModConfigs.showServerHitboxes = serverHitboxes.get();
         };
 
         IEventBus bus = c.getEventBus();

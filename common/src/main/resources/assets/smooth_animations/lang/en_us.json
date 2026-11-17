@@ -1,4 +1,11 @@
 {
+  "smooth_animations.configuration.title": "Smooth Animations Config",
   "smooth_animations.configuration.smooth_rotations": "Smooth Rotations",
-  "smooth_animations.configuration.smooth_falling_block_landing": "Smooth Falling Block Landing"
+  "smooth_animations.configuration.smooth_falling_block_landing": "Smooth Falling Block Landing",
+  "smooth_animations.configuration.ghast_swell": "Ghast Swell",
+  "smooth_animations.configuration.ghast_mouth_fireball": "Ghast Fireball From Mouth",
+  "smooth_animations.configuration.wither_yaw_fix": "Wither Yaw Fix",
+  "smooth_animations.configuration.wither_model_fix": "Wither Model Fix",
+  "smooth_animations.configuration.pitch_lerp_fix": "Sheep And Drowned Pitch Lerp",
+  "smooth_animations.configuration.debug_server_hitboxes": "Show Server Hitboxes (Debug)"
 }
