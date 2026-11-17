@@ -1,3 +1,1 @@
-- forced minecraft and boats to not learp for 2 more ticks like they (for some reason) do in vanilla
-- added an option for zero tick, makes client & server positions exactly the same
-- added a config to show server hitbox
+- ported to 26.1.2
