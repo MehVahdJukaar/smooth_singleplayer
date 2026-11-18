@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "net.mehvahdjukaar.smooth_animations.platform.SmoothAnimationsFabric"
+    ],
+    "modmenu": [
+      "net.mehvahdjukaar.smooth_animations.platform.SmoothAnimationsModMenu"
     ]
   },
   "mixins": [
