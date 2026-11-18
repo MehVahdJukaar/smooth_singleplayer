@@ -32,23 +32,23 @@ public class PlatStuffImpl {
     public static void registerConfigs() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         var entityRotation = builder.comment("Fixes entity bodies rotating choppily when head rotates")
-                .define("smooth_rotations", true);
+                .define("smooth_body_turning", true);
+        var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
+                .define("pitch_lerp_fix", true);
         var fallingBlocks = builder.comment("Smooth transition for falling block entity to block transformation")
                 .define("smooth_falling_block_landing", true);
-        var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0. VANILLA squashes them like 1.2.5, SWELL also stretches them up so they look like they're taking in air")
-                .defineEnum("ghast_swell", ModConfigs.GhastSwell.VANILLA);
-        var ghastMouthFireball = builder.comment("Ghast fireballs come out of the mouth instead of its eyes")
-                .define("ghast_mouth_fireball", true);
         var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
                 .define("wither_yaw_fix", true);
         var witherModelFix = builder.comment("Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated")
                 .define("wither_model_fix", true);
-        var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
-                .define("pitch_lerp_fix", true);
-        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity. Render might jitter a as it's not interpolated")
-                .define("debug_server_hitboxes", false);
+        var ghastMouthFireball = builder.comment("Ghast fireballs come out of the mouth instead of its eyes")
+                .define("ghast_mouth_fireball", true);
+        var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0. VANILLA squashes them like 1.2.5, SWELL also stretches them up so they look like they're taking in air")
+                .defineEnum("ghast_swell", ModConfigs.GhastSwell.VANILLA);
         var tickSync = builder.comment("Sends entity positions AFTER they move instead ov before like vanilla does. This makes the server and client agree on their position EXACTLY (instead of being 1 tick behind). Projectiles and similar are unaffected and still client driven. Default off as it could be a bit more invasive, turn on for perfect sync")
                 .define("zero_tick_entity_sync", false);
+        var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity. Render might jitter a as it's not interpolated")
+                .define("debug_server_hitboxes", false);
         ModConfigSpec spec = builder.build();
         ModContainer c = ModList.get().getModContainerById(SmoothAnimations.MOD_ID).orElseThrow();
 //TODO: addmore

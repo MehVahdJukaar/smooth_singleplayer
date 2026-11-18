@@ -9,4 +9,7 @@ fabric {
 
 dependencies {
     modRuntimeOnly("maven.modrinth:sodium:mc1.21.1-0.8.12-fabric")
+
+    modCompileOnly("maven.modrinth:modmenu:11.0.3")
+    modLocalRuntime("maven.modrinth:modmenu:11.0.3")
 }
