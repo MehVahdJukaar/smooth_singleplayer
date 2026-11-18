@@ -1,2 +1,1 @@
-- alternative animation for ghast
-- fixed falling blocks with sodium
+- fps won't dip anymore when server thread is lagging

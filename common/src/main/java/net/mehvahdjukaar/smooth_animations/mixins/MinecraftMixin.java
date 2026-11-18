@@ -1,8 +1,9 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
-import net.mehvahdjukaar.smooth_animations.SmoothAnimations;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.mehvahdjukaar.smooth_animations.client.IJitterFixTimer;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.mehvahdjukaar.smooth_animations.client.FrameTimeCatchUp;
 import net.minecraft.Util;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -59,6 +60,18 @@ public abstract class MinecraftMixin {
         //SmoothAnimations.LOGGER.debug("waited {}ms for server", (System.nanoTime() - start) / 1000000f);
     }
 
+    // runs after runAllTasks. that means the tick done packet is already handled here
+    @WrapOperation(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;tick()V"))
+    private void smoothAnim$holdTickUntilServerDone(Minecraft mc, Operation<Void> tick) {
+        boolean serverStillTicking = level != null && SinglePlayerTickManager.isClientDriven() && !SinglePlayerTickManager.hasReceivedAllowedTicks();
+        //under 20 fps a frame is longer than a tick so holding would just slow the game down. . thast why we block in tick() instead
+        if (serverStillTicking && timer.getGameTimeDeltaTicks() < 1) {
+            ((IJitterFixTimer) timer).smoothAnim$freezeTick();
+        } else {
+            tick.call(mc);
+        }
+    }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void ss$allowNextServerTick(CallbackInfo ci) {
         //tick done. server its your turn
@@ -70,6 +83,6 @@ public abstract class MinecraftMixin {
     //partial tick is ocomputed right before the tick runs, so frames with a tick draw stuff a few ms late
     @Inject(method = "tick", at = @At("TAIL"))
     private void smoothAnim$catchUpFrameTime(CallbackInfo ci) {
-        ((FrameTimeCatchUp) timer).smoothAnim$catchUpPartialTick(Util.getMillis());
+        ((IJitterFixTimer) timer).smoothAnim$catchUpPartialTick(Util.getMillis());
     }
 }
