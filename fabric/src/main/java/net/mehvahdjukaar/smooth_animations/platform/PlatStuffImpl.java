@@ -48,14 +48,18 @@ public class PlatStuffImpl {
 
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static Path getConfigPath() {
+        return FabricLoader.getInstance().getConfigDir().resolve(SmoothAnimations.MOD_ID + ".json");
+    }
+
     public static void registerConfigs() {
         //bare bone config
-        Path path = FabricLoader.getInstance().getConfigDir().resolve(SmoothAnimations.MOD_ID + ".json");
+        Path path = getConfigPath();
         try {
             JsonObject jo = Files.exists(path) ? GsonHelper.parse(Files.readString(path)) : new JsonObject();
 
             ModConfigs.fallingBlockLanding = GsonHelper.getAsBoolean(jo, "falling_block_landing", true);
-            ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "entity_rotation_fix", true);
+            ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "smooth_body_turning", true);
             try {
                 ModConfigs.ghastSwell = ModConfigs.GhastSwell.valueOf(GsonHelper.getAsString(jo, "ghast_swell", "vanilla").toUpperCase(Locale.ROOT));
             } catch (IllegalArgumentException e) {
@@ -67,20 +71,29 @@ public class PlatStuffImpl {
             ModConfigs.pitchLerpFix = GsonHelper.getAsBoolean(jo, "mob_pitch_lerp", true);
             ModConfigs.showServerHitboxes = GsonHelper.getAsBoolean(jo, "debug_server_hitboxes", false);
             ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", false);
+        } catch (Exception ex) {
+            SmoothAnimations.LOGGER.error("Failed to load config {}", path, ex);
+        }
+        saveConfigs();
+    }
 
-            jo.addProperty("entity_rotation_fix", ModConfigs.entityRotationFix);
+    public static void saveConfigs() {
+        Path path = getConfigPath();
+        try {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("smooth_body_turning", ModConfigs.entityRotationFix);
+            jo.addProperty("mob_pitch_lerp", ModConfigs.pitchLerpFix);
             jo.addProperty("falling_block_landing", ModConfigs.fallingBlockLanding);
-            jo.addProperty("ghast_swell", ModConfigs.ghastSwell.name().toLowerCase(Locale.ROOT));
-            jo.addProperty("ghast_mouth_fireball", ModConfigs.ghastMouthFireball);
             jo.addProperty("wither_yaw_fix", ModConfigs.witherYawFix);
             jo.addProperty("wither_model_fix", ModConfigs.witherModelFix);
-            jo.addProperty("mob_pitch_lerp", ModConfigs.pitchLerpFix);
-            jo.addProperty("debug_server_hitboxes", ModConfigs.showServerHitboxes);
+            jo.addProperty("ghast_mouth_fireball", ModConfigs.ghastMouthFireball);
+            jo.addProperty("ghast_swell", ModConfigs.ghastSwell.name().toLowerCase(Locale.ROOT));
             jo.addProperty("zero_tick_entity_sync", ModConfigs.zeroTickEntitySync);
+            jo.addProperty("debug_server_hitboxes", ModConfigs.showServerHitboxes);
             Files.writeString(path, GSON.toJson(jo));
 
         } catch (Exception ex) {
-            SmoothAnimations.LOGGER.error("Failed to load config {}", path, ex);
+            SmoothAnimations.LOGGER.error("Failed to save config {}", path, ex);
         }
     }
 }
