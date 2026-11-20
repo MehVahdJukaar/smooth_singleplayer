@@ -11,6 +11,7 @@ public class ModConfigs {
     public static boolean pitchLerpFix = true;
     public static boolean showServerHitboxes = false;
     public static boolean zeroTickEntitySync = false;
+    public static boolean serverLagFallback = true;
 
     public enum GhastSwell {
         OFF, VANILLA, SWELL
