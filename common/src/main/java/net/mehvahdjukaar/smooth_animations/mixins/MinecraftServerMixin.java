@@ -29,7 +29,7 @@ public abstract class MinecraftServerMixin extends ReentrantBlockableEventLoop<T
     private void ss$waitForClientTick(CallbackInfo ci) {
         if (!SinglePlayerTickManager.isClientDriven()) return;
 
-        long giveUpAt = System.nanoTime() + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
+        long giveUpAt = System.nanoTime() + SinglePlayerTickManager.MAX_LOCK_WAIT_NANO;
         this.runAllTasks();
         //same deal as the client
         this.managedBlock(() -> SinglePlayerTickManager.tryStartServerTick() || System.nanoTime() > giveUpAt);

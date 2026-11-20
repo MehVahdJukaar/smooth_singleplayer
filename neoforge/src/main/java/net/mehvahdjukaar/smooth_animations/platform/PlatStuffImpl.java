@@ -47,6 +47,8 @@ public class PlatStuffImpl {
                 .defineEnum("ghast_swell", ModConfigs.GhastSwell.VANILLA);
         var tickSync = builder.comment("Sends entity positions AFTER they move instead ov before like vanilla does. This makes the server and client agree on their position EXACTLY (instead of being 1 tick behind). Projectiles and similar are unaffected and still client driven. Default off as it could be a bit more invasive, turn on for perfect sync")
                 .define("zero_tick_entity_sync", false);
+        var serverLagFallback = builder.comment("When the server lags, the client stops waiting for it and runs on its own like vanilla, until the server catches up. Off makes the whole game slow down with the server, player included. No more 'client' or 'server' lag, just lag. True singleplayer.")
+                .define("server_lag_fallback", true);
         var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity. Render might jitter a as it's not interpolated")
                 .define("debug_server_hitboxes", false);
         ModConfigSpec spec = builder.build();
@@ -69,6 +71,7 @@ public class PlatStuffImpl {
             ModConfigs.pitchLerpFix = pitchLerp.get();
             ModConfigs.showServerHitboxes = serverHitboxes.get();
             ModConfigs.zeroTickEntitySync = tickSync.get();
+            ModConfigs.serverLagFallback = serverLagFallback.get();
         };
 
         IEventBus bus = c.getEventBus();

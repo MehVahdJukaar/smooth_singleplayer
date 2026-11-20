@@ -53,6 +53,7 @@ public class PlatStuffImpl {
             ModConfigs.pitchLerpFix = GsonHelper.getAsBoolean(jo, "mob_pitch_lerp", true);
             ModConfigs.showServerHitboxes = GsonHelper.getAsBoolean(jo, "debug_server_hitboxes", false);
             ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", false);
+            ModConfigs.serverLagFallback = GsonHelper.getAsBoolean(jo, "server_lag_fallback", true);
         } catch (Exception ex) {
             SmoothAnimations.LOGGER.error("Failed to load config {}", path, ex);
         }
@@ -71,6 +72,7 @@ public class PlatStuffImpl {
             jo.addProperty("ghast_mouth_fireball", ModConfigs.ghastMouthFireball);
             jo.addProperty("ghast_swell", ModConfigs.ghastSwell.name().toLowerCase(Locale.ROOT));
             jo.addProperty("zero_tick_entity_sync", ModConfigs.zeroTickEntitySync);
+            jo.addProperty("server_lag_fallback", ModConfigs.serverLagFallback);
             jo.addProperty("debug_server_hitboxes", ModConfigs.showServerHitboxes);
             Files.writeString(path, GSON.toJson(jo));
 

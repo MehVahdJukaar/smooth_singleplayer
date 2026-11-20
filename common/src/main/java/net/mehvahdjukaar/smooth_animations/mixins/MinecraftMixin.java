@@ -52,10 +52,10 @@ public abstract class MinecraftMixin {
 
         long start = System.nanoTime();
         //ok now we wait for server to do its ticking
-        long giveUpAt = start + SinglePlayerTickManager.WAIT_LIMIT_NANOS;
+        long giveUpAt = start + SinglePlayerTickManager.MAX_LOCK_WAIT_NANO;
         var mc = ((Minecraft) (Object) this);
         //block until server is done
-        mc.managedBlock(() -> SinglePlayerTickManager.hasReceivedAllowedTicks() || System.nanoTime() > giveUpAt);
+        mc.managedBlock(() -> !SinglePlayerTickManager.shouldWaitForServer() || System.nanoTime() > giveUpAt);
 
         //SmoothAnimations.LOGGER.debug("waited {}ms for server", (System.nanoTime() - start) / 1000000f);
     }
@@ -63,7 +63,7 @@ public abstract class MinecraftMixin {
     // runs after runAllTasks. that means the tick done packet is already handled here
     @WrapOperation(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;tick()V"))
     private void smoothAnim$holdTickUntilServerDone(Minecraft mc, Operation<Void> tick) {
-        boolean serverStillTicking = level != null && SinglePlayerTickManager.isClientDriven() && !SinglePlayerTickManager.hasReceivedAllowedTicks();
+        boolean serverStillTicking = level != null && SinglePlayerTickManager.isClientDriven() && SinglePlayerTickManager.shouldWaitForServer();
         //under 20 fps a frame is longer than a tick so holding would just slow the game down. . thast why we block in tick() instead
         if (serverStillTicking && deltaTracker.getGameTimeDeltaTicks() < 1) {
             ((IJitterFixTimer) deltaTracker).smoothAnim$freezeTick();
