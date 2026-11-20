@@ -1,1 +1,1 @@
-- fps won't dip anymore when server thread is lagging
+- added snowy spirit compat for sleds, interpolated like carts. 

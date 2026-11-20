@@ -18,7 +18,7 @@ public abstract class SledEntityMixin implements LerpedOnClient {
     @Shadow
     private int lerpSteps;
 
-    @Inject(method = "lerpTo", at = @At("TAIL"))
+    @Inject(method = {"lerpTo", "method_5759"}, at = @At("TAIL"))
     private void smoothAnim$useGivenLerpSteps(double x, double y, double z, float yRot, float xRot, int steps, boolean teleport, CallbackInfo ci) {
         if (SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
             lerpSteps = steps;
