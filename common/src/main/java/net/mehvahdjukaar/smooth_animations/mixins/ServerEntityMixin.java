@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,11 +22,17 @@ public abstract class ServerEntityMixin {
     @Shadow
     @Final
     private Entity entity;
+    @Shadow
+    @Final
+    @Mutable
+    private int updateInterval;
 
-    @ModifyExpressionValue(method = "sendChanges", at = @At(value = "FIELD",
-            target = "Lnet/minecraft/server/level/ServerEntity;updateInterval:I"))
-    private int ss$sendEveryTick(int updateInterval) {
-        return SinglePlayerTickManager.isTrueSinglePlayer(level.getServer()) ? 1 : updateInterval;
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void ss$sendEveryTick(CallbackInfo ci) {
+        if (SinglePlayerTickManager.isTrueSinglePlayer(level.getServer())) {
+            this.updateInterval = 1;
+            //OK so this is technically not correct for lan. if one opens lan the shorter interval will remain. maybe a feature?
+        }
     }
 
     @Inject(method = "sendChanges", at = @At("HEAD"), cancellable = true)
