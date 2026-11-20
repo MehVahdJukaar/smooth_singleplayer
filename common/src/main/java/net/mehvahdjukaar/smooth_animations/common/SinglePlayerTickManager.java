@@ -1,8 +1,10 @@
 package net.mehvahdjukaar.smooth_animations.common;
 
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
+import net.minecraft.SharedConstants;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerEntity;
+import net.minecraft.util.TimeUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
@@ -16,13 +18,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SinglePlayerTickManager {
 
-    public static final long WAIT_LIMIT_NANOS = 200000000L;
+    //mc constants just to make the following clearer
+    //this is 50ms
+    private static final long NANOS_PER_TICK = TimeUtil.NANOSECONDS_PER_SECOND / SharedConstants.TICKS_PER_SECOND;
 
+    //this is the longest either one blocks the other one. ever.
+    //on client (with server lag) with the lag_fallback this is actually not used as other wins.
+    public static final long MAX_LOCK_WAIT_NANO = 4 * NANOS_PER_TICK;
+    //for lag_fallback. after server is below 18 tps we unlock
+    //this basically mean: IF we are waiting for DOUBLE the MAXIMUM time the server is allowd to tick BEFORE it goes down its target of 20 fps, THEN we tick anywyas
+    private static final long MAX_SERVER_LAG_FALLBACK_WAIT_NANO = 2 * NANOS_PER_TICK;
+    //controls how long a server lag spike is remembered. Needed as server could have very fast and very slow ticks in quick succession
+    private static final long WAIT_DEBT_DECAY_NANOS = NANOS_PER_TICK / 10;
+    //some slack when we lagging
+    private static final int MAX_QUEUED_SERVER_TICKS = 2;
+
+    //if our locking is on or off
     private static volatile boolean clientDrivesTicks;
     //cient gives one per tick, server uses it up
     private static final Semaphore serverTickPermits = new Semaphore(0);
-    //so this is basically a boolean but can go > 1 when the server lags or stalls
+    //so this is basically a boolean but can go > 1 when the server lags or stalls. How many ticks we awaitng for
     private static final AtomicInteger serverTicksBeingAwaitedFor = new AtomicInteger();
+
+    //for server lag detection
+    private static long startedWaitingNanos;
+    private static long serverWaitDebtNanos;
+    //fuck it, server is lagging as shit we unlocked
+    private static boolean serverLagging;
 
 
     //shared map. server sets it and client reads it
@@ -41,6 +63,8 @@ public class SinglePlayerTickManager {
     public static void activateClientTickDrive() {
         serverTickPermits.drainPermits();
         serverTicksBeingAwaitedFor.set(0);
+        serverLagging = false;
+        serverWaitDebtNanos = 0;
         allowNextServerTick();
 
         clientDrivesTicks = true;
@@ -51,6 +75,14 @@ public class SinglePlayerTickManager {
     }
 
     public static void allowNextServerTick() {
+        if (startedWaitingNanos != 0) {
+            serverWaitDebtNanos += System.nanoTime() - startedWaitingNanos;
+            startedWaitingNanos = 0;
+        } else {
+            serverWaitDebtNanos = Math.max(0, serverWaitDebtNanos - WAIT_DEBT_DECAY_NANOS);
+        }
+
+        if (serverTicksBeingAwaitedFor.get() >= MAX_QUEUED_SERVER_TICKS) return;
         serverTicksBeingAwaitedFor.incrementAndGet();
 
         serverTickPermits.release();
@@ -61,8 +93,29 @@ public class SinglePlayerTickManager {
         return serverTicksBeingAwaitedFor.get() <= 0;
     }
 
+    public static boolean shouldWaitForServer() {
+        if (hasReceivedAllowedTicks()) {
+            serverLagging = false;
+            return false;
+        }
+        if (serverLagging) return false;
+
+        long now = System.nanoTime();
+        if (startedWaitingNanos == 0) startedWaitingNanos = now;
+
+        boolean waitedTooMuch = serverWaitDebtNanos + now - startedWaitingNanos > MAX_SERVER_LAG_FALLBACK_WAIT_NANO;
+        if (ModConfigs.serverLagFallback && waitedTooMuch) {
+            serverLagging = true;
+            serverWaitDebtNanos = 0;
+            startedWaitingNanos = 0;
+            return false;
+        }
+        return true;
+    }
+
+
     public static void onServerTickDoneReceived() {
-        serverTicksBeingAwaitedFor.decrementAndGet();
+        serverTicksBeingAwaitedFor.updateAndGet(i -> Math.max(0, i - 1));
     }
 
     public static boolean tryStartServerTick() {

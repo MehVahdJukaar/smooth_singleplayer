@@ -44,6 +44,7 @@ public class ModConfigsScreen extends OptionsSubScreen {
         addBool("ghast_mouth_fireball", ModConfigs.ghastMouthFireball, v -> ModConfigs.ghastMouthFireball = v);
         addEnum("ghast_swell", ModConfigs.ghastSwell, v -> ModConfigs.ghastSwell = v);
         addBool("zero_tick_entity_sync", ModConfigs.zeroTickEntitySync, v -> ModConfigs.zeroTickEntitySync = v);
+        addBool("server_lag_fallback", ModConfigs.serverLagFallback, v -> ModConfigs.serverLagFallback = v);
         addBool("debug_server_hitboxes", ModConfigs.showServerHitboxes, v -> ModConfigs.showServerHitboxes = v);
     }
 
