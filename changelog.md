@@ -1,1 +1,4 @@
-- ported to 26.1.2
+- added a config, default on that makes it so IF server is going SLWOER than 20tps (aka lagging BAD), client won't wait for it
+- Still this means your game has issues, imo having both lag at the same time is preferrable, no desync, no sidedness, just GAME lag.
+- since people have asked tho, here it is
+- changed a mixin to work better with vanilla backport happy ghast
