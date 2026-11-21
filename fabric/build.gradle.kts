@@ -11,5 +11,5 @@ dependencies {
     modRuntimeOnly("curse.maven:sodium-394468:8396480")
 
     modCompileOnly("maven.modrinth:modmenu:18.0.2")
-    modLocalRuntime("maven.modrinth:modmenu:18.0.2")
+    localRuntime("maven.modrinth:modmenu:18.0.2")
 }

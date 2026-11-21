@@ -40,9 +40,8 @@ public class ModConfigsScreen extends OptionsSubScreen {
     }
 
     private <T extends Enum<T>> void addEnum(String key, T value, Consumer<T> setter) {
-        this.list.addSmall(CycleButton.<T>builder(e -> Component.literal(e.name().toLowerCase(Locale.ROOT)))
+        this.list.addSmall(CycleButton.<T>builder(e -> Component.literal(e.name().toLowerCase(Locale.ROOT)), value)
                 .withValues(value.getDeclaringClass().getEnumConstants())
-                .withInitialValue(value)
                 .create(0, 0, 310, 20, Component.translatable("smooth_animations.configuration." + key),
                         (b, v) -> setter.accept(v)), null);
     }
