@@ -51,6 +51,7 @@ public class PlatStuffImpl {
             ModConfigs.witherYawFix = GsonHelper.getAsBoolean(jo, "wither_yaw_fix", true);
             ModConfigs.witherModelFix = GsonHelper.getAsBoolean(jo, "wither_model_fix", true);
             ModConfigs.pitchLerpFix = GsonHelper.getAsBoolean(jo, "mob_pitch_lerp", true);
+            ModConfigs.snapEntityPosition = GsonHelper.getAsBoolean(jo, "snap_entity_position", true);
             ModConfigs.showServerHitboxes = GsonHelper.getAsBoolean(jo, "debug_server_hitboxes", false);
             ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", false);
             ModConfigs.serverLagFallback = GsonHelper.getAsBoolean(jo, "server_lag_fallback", true);
@@ -66,6 +67,7 @@ public class PlatStuffImpl {
             JsonObject jo = new JsonObject();
             jo.addProperty("smooth_body_turning", ModConfigs.entityRotationFix);
             jo.addProperty("mob_pitch_lerp", ModConfigs.pitchLerpFix);
+            jo.addProperty("snap_entity_position", ModConfigs.snapEntityPosition);
             jo.addProperty("falling_block_landing", ModConfigs.fallingBlockLanding);
             jo.addProperty("wither_yaw_fix", ModConfigs.witherYawFix);
             jo.addProperty("wither_model_fix", ModConfigs.witherModelFix);

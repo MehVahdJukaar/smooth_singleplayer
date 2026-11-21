@@ -7,7 +7,6 @@
     "AbstractBoatMixin",
     "AbstractMinecartMixin",
     "ClientLevelMixin",
-    "ClientPacketListenerMixin",
     "DeltaTrackerTimerMixin",
     "EntityHitboxDebugRendererMixin",
     "FallingBlockEntityLandingMixin",
