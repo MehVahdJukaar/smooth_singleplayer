@@ -38,6 +38,7 @@ public class ModConfigsScreen extends OptionsSubScreen {
     protected void addOptions() {
         addBool("smooth_body_turning", ModConfigs.entityRotationFix, v -> ModConfigs.entityRotationFix = v);
         addBool("pitch_lerp_fix", ModConfigs.pitchLerpFix, v -> ModConfigs.pitchLerpFix = v);
+        addBool("slime_squish_lerp", ModConfigs.slimeSquishLerp, v -> ModConfigs.slimeSquishLerp = v);
         addBool("smooth_falling_block_landing", ModConfigs.fallingBlockLanding, v -> ModConfigs.fallingBlockLanding = v);
         addBool("wither_yaw_fix", ModConfigs.witherYawFix, v -> ModConfigs.witherYawFix = v);
         addBool("wither_model_fix", ModConfigs.witherModelFix, v -> ModConfigs.witherModelFix = v);

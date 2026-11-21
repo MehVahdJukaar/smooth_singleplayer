@@ -15,12 +15,14 @@
     "FallingBlockRendererMixin",
     "GhastRendererMixin",
     "IntegratedServerMixin",
+    "LivingEntityMixin",
     "MinecraftMixin",
     "MinecraftServerMixin",
     "RenderChunkRegionMixin",
     "ServerLevelMixin",
     "SheepMixin",
     "SledEntityMixin",
+    "SlimeMixin",
     "WitherBossModelMixin"
   ],
   "mixins": [

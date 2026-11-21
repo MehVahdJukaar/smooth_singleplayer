@@ -44,8 +44,12 @@ public class PlatStuffImpl {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         var entityRotation = builder.comment("Fixes entity bodies rotating choppily when head rotates")
                 .define("smooth_body_turning", true);
+        var snapPosition = builder.comment("Entities snap to their server position every tick. Off makes them trail behind it over 3 ticks like vanilla. Mobs still turn over a few ticks either way, snapping that too makes them flick around. True singleplayer.")
+                .define("snap_entity_position", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
                 .define("pitch_lerp_fix", true);
+        var slimeSquish = builder.comment("Fixes slime and magma cube squish not being interpolated")
+                .define("slime_squish_lerp", true);
         var fallingBlocks = builder.comment("Smooth transition for falling block entity to block transformation")
                 .define("smooth_falling_block_landing", true);
         var witherYaw = builder.comment("Fixes withers shaking lika crazy left and right when pathfinding a far target")
@@ -74,6 +78,8 @@ public class PlatStuffImpl {
             ModConfigs.witherYawFix = witherYaw.get();
             ModConfigs.witherModelFix = witherModelFix.get();
             ModConfigs.pitchLerpFix = pitchLerp.get();
+            ModConfigs.slimeSquishLerp = slimeSquish.get();
+            ModConfigs.snapEntityPosition = snapPosition.get();
             ModConfigs.showServerHitboxes = serverHitboxes.get();
             ModConfigs.zeroTickEntitySync = tickSync.get();
             ModConfigs.serverLagFallback = serverLagFallback.get();
