@@ -9,6 +9,8 @@ public class ModConfigs {
     public static boolean witherYawFix = true;
     public static boolean witherModelFix = true;
     public static boolean pitchLerpFix = true;
+    public static boolean slimeSquishLerp = true;
+    public static boolean snapEntityPosition = true;
     public static boolean showServerHitboxes = false;
     public static boolean zeroTickEntitySync = false;
     public static boolean serverLagFallback = true;

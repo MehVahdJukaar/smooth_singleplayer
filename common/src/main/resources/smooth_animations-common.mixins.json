@@ -10,6 +10,7 @@
     "ClientPacketListenerMixin",
     "DeltaTrackerTimerMixin",
     "DrownedRendererMixin",
+    "EntityMixin",
     "EntityRenderDispatcherMixin",
     "FallingBlockEntityLandingMixin",
     "FallingBlockRendererMixin",
@@ -21,6 +22,7 @@
     "ServerLevelMixin",
     "SheepMixin",
     "SledEntityMixin",
+    "SlimeMixin",
     "WitherBossModelMixin",
     "sodium.BlockOcclusionCacheMixin",
     "sodium.BlockRendererMixin"

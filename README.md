@@ -25,6 +25,7 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 *   Mob bodies follow the head every tick with an eased catch up instead of snapping every 15 degrees. Heads slow down near their look target
 *   Partial tick gets recomputed after the client tick runs so frames that run a tick aren't drawn in the past
 *   Brings back & improves the ghast swelling up before shooting, gone since beta 1.3 (MC-165038)
+*   Slime and magma cube squish is now interpolated (it wasn't before...)
 *   Fixes withers shaking left and right when chasing a far target (MC-272049)
 *   Fixes many issues with wither model like offcentered head, tail, heads not aiming from the right side or being interpolated
 
@@ -40,6 +41,7 @@ This mod is simple in scope and simply addresses this issue with a series of tar
 | mob heads | yes, needs mod on server |
 | partial tick catch up | yes |
 | ghast swell | yes |
+| slime squish | yes |
 | wither yaw fix | yes, needs mod on server |
 | wither model fixes | yes |
 
