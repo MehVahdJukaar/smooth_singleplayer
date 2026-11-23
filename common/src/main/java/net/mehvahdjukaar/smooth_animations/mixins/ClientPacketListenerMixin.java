@@ -2,8 +2,7 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
-import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.minecraft.client.Minecraft;
+import net.mehvahdjukaar.smooth_animations.client.SmoothAnimationsClient;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +17,7 @@ public abstract class ClientPacketListenerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;lerpTo(DDDFFI)V"))
     private int smoothAnim$stopTPLerp(int steps, @Local Entity entity) {
         if (!ModConfigs.snapEntityPosition) return steps;
-        if (!SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
+        if (!SmoothAnimationsClient.isTickLockedToServer()) {
             return steps;
         }
         //mobs keep lerp for yrot, EntityMixin does their position. kinda sketchy since a non living might need interpolation too? check again

@@ -1,8 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.common.LerpedOnClient;
-import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.minecraft.client.Minecraft;
+import net.mehvahdjukaar.smooth_animations.client.SmoothAnimationsClient;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,7 +17,7 @@ public abstract class BoatMixin implements LerpedOnClient {
 
     @Inject(method = "lerpTo", at = @At("TAIL"))
     private void smoothAnim$useGivenLerpStepsFFS(double x, double y, double z, float yRot, float xRot, int steps, CallbackInfo ci) {
-        if (SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
+        if (SmoothAnimationsClient.isTickLockedToServer()) {
             lerpSteps = steps;
         }
     }

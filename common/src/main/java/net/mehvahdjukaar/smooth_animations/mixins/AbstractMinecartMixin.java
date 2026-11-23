@@ -1,8 +1,7 @@
 package net.mehvahdjukaar.smooth_animations.mixins;
 
 import net.mehvahdjukaar.smooth_animations.common.LerpedOnClient;
-import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.minecraft.client.Minecraft;
+import net.mehvahdjukaar.smooth_animations.client.SmoothAnimationsClient;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +18,7 @@ public abstract class AbstractMinecartMixin implements LerpedOnClient {
     @Inject(method = "lerpTo", at = @At("TAIL"))
     private void smoothAnim$dontAddLerpStepsFFS(double x, double y, double z, float yRot, float xRot, int steps, CallbackInfo ci) {
         //mc adds 2 here for whatever reason
-        if (SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
+        if (SmoothAnimationsClient.isTickLockedToServer()) {
             this.lerpSteps = steps;
         }
     }
