@@ -25,11 +25,8 @@ public class SinglePlayerTickManager {
     //this is the longest either one blocks the other one. ever.
     //on client (with server lag) with the lag_fallback this is actually not used as other wins.
     public static final long MAX_LOCK_WAIT_NANO = 4 * NANOS_PER_TICK;
-    //for lag_fallback. after server is below 18 tps we unlock
-    //this basically mean: IF we are waiting for DOUBLE the MAXIMUM time the server is allowd to tick BEFORE it goes down its target of 20 fps, THEN we tick anywyas
-    private static final long MAX_SERVER_LAG_FALLBACK_WAIT_NANO = 2 * NANOS_PER_TICK;
-    //controls how long a server lag spike is remembered. Needed as server could have very fast and very slow ticks in quick succession
-    private static final long WAIT_DEBT_DECAY_NANOS = NANOS_PER_TICK / 10;
+    //for lag_fallback. Needs 3 ticks of the server be on time
+    private static final int ON_TIME_TICKS_FOR_LOCK_ON_COMMENCE = 3 * SharedConstants.TICKS_PER_SECOND;
     //some slack when we lagging
     private static final int MAX_QUEUED_SERVER_TICKS = 2;
 
@@ -40,9 +37,7 @@ public class SinglePlayerTickManager {
     //so this is basically a boolean but can go > 1 when the server lags or stalls. How many ticks we awaitng for
     private static final AtomicInteger serverTicksBeingAwaitedFor = new AtomicInteger();
 
-    //for server lag detection
-    private static long startedWaitingNanos;
-    private static long serverWaitDebtNanos;
+    private static int ticksServerWasOnTime;
     //fuck it, server is lagging as shit we unlocked
     private static boolean serverLagging;
 
@@ -64,7 +59,6 @@ public class SinglePlayerTickManager {
         serverTickPermits.drainPermits();
         serverTicksBeingAwaitedFor.set(0);
         serverLagging = false;
-        serverWaitDebtNanos = 0;
         allowNextServerTick();
 
         clientDrivesTicks = true;
@@ -75,11 +69,8 @@ public class SinglePlayerTickManager {
     }
 
     public static void allowNextServerTick() {
-        if (startedWaitingNanos != 0) {
-            serverWaitDebtNanos += System.nanoTime() - startedWaitingNanos;
-            startedWaitingNanos = 0;
-        } else {
-            serverWaitDebtNanos = Math.max(0, serverWaitDebtNanos - WAIT_DEBT_DECAY_NANOS);
+        if (serverLagging && ++ticksServerWasOnTime > ON_TIME_TICKS_FOR_LOCK_ON_COMMENCE) {
+            serverLagging = false;
         }
 
         if (serverTicksBeingAwaitedFor.get() >= MAX_QUEUED_SERVER_TICKS) return;
@@ -94,23 +85,22 @@ public class SinglePlayerTickManager {
     }
 
     public static boolean shouldWaitForServer() {
-        if (hasReceivedAllowedTicks()) {
-            serverLagging = false;
-            return false;
+        if (hasReceivedAllowedTicks()) return false;
+        if (!ModConfigs.serverLagFallback) {
+            return true;
         }
-        if (serverLagging) return false;
 
-        long now = System.nanoTime();
-        if (startedWaitingNanos == 0) startedWaitingNanos = now;
+        // if we hold a tick even for 1 frame while server is lagging it freezes the camera.
+        //thta shows way more than a late mob, people have complained... thye prefer no cmaera lag to desycned mobs
+        //unforutnately this complicates thing a bit so solution is we require some time for the server to be on time
+        serverLagging = true;
+        ticksServerWasOnTime = 0;
+        return false;
+    }
 
-        boolean waitedTooMuch = serverWaitDebtNanos + now - startedWaitingNanos > MAX_SERVER_LAG_FALLBACK_WAIT_NANO;
-        if (ModConfigs.serverLagFallback && waitedTooMuch) {
-            serverLagging = true;
-            serverWaitDebtNanos = 0;
-            startedWaitingNanos = 0;
-            return false;
-        }
-        return true;
+
+    public static boolean isServerLagging() {
+        return serverLagging;
     }
 
 

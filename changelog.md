@@ -1,2 +1,2 @@
-- added back interpolation and rotation "lag" for yRot since some entities on server are set in big steps instead of smoothly
-- fixed slime squish not being interpolated
+- we now require full 3 seconds of full non server lag for the lock mechanic to engage.
+- This makes it so sudden spikes in server lag wil get  client out f sync allowing camera to move around nicely at the cost of having everything else be lagging behind out of sync
