@@ -3,8 +3,7 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
-import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
-import net.minecraft.client.Minecraft;
+import net.mehvahdjukaar.smooth_animations.client.SmoothAnimationsClient;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,7 +22,7 @@ public abstract class LivingEntityMixin {
     @WrapOperation(method = "aiStep", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/entity/LivingEntity;setPos(DDD)V"))
     private void smoothAnim$snapPositionToServer(LivingEntity instance, double x, double y, double z, Operation<Void> original) {
-        if (ModConfigs.snapEntityPosition && SinglePlayerTickManager.isTrueSinglePlayer(Minecraft.getInstance().getSingleplayerServer())) {
+        if (ModConfigs.snapEntityPosition && SmoothAnimationsClient.isTickLockedToServer()) {
             //snap to position instantly  while we let rot interpolate (as if interpolation step was 1 but only for pos)
             original.call(instance, lerpX, lerpY, lerpZ);
         } else {
