@@ -42,6 +42,7 @@ public class PlatStuffImpl {
 
             ModConfigs.fallingBlockLanding = GsonHelper.getAsBoolean(jo, "falling_block_landing", true);
             ModConfigs.entityRotationFix = GsonHelper.getAsBoolean(jo, "smooth_body_turning", true);
+            ModConfigs.idleYawFollowsBody = GsonHelper.getAsBoolean(jo, "idle_yaw_follows_body", true);
             try {
                 ModConfigs.ghastSwell = ModConfigs.GhastSwell.valueOf(GsonHelper.getAsString(jo, "ghast_swell", "vanilla").toUpperCase(Locale.ROOT));
             } catch (IllegalArgumentException e) {
@@ -55,6 +56,7 @@ public class PlatStuffImpl {
             ModConfigs.showServerHitboxes = GsonHelper.getAsBoolean(jo, "debug_server_hitboxes", false);
             ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", false);
             ModConfigs.serverLagFallback = GsonHelper.getAsBoolean(jo, "server_lag_fallback", true);
+            ModConfigs.frameTimeCatchUp = GsonHelper.getAsBoolean(jo, "catch_up_frame_time_after_tick", true);
         } catch (Exception ex) {
             SmoothAnimations.LOGGER.error("Failed to load config {}", path, ex);
         }
@@ -66,6 +68,7 @@ public class PlatStuffImpl {
         try {
             JsonObject jo = new JsonObject();
             jo.addProperty("smooth_body_turning", ModConfigs.entityRotationFix);
+            jo.addProperty("idle_yaw_follows_body", ModConfigs.idleYawFollowsBody);
             jo.addProperty("mob_pitch_lerp", ModConfigs.pitchLerpFix);
             jo.addProperty("snap_entity_position", ModConfigs.snapEntityPosition);
             jo.addProperty("falling_block_landing", ModConfigs.fallingBlockLanding);
@@ -75,6 +78,7 @@ public class PlatStuffImpl {
             jo.addProperty("ghast_swell", ModConfigs.ghastSwell.name().toLowerCase(Locale.ROOT));
             jo.addProperty("zero_tick_entity_sync", ModConfigs.zeroTickEntitySync);
             jo.addProperty("server_lag_fallback", ModConfigs.serverLagFallback);
+            jo.addProperty("catch_up_frame_time_after_tick", ModConfigs.frameTimeCatchUp);
             jo.addProperty("debug_server_hitboxes", ModConfigs.showServerHitboxes);
             Files.writeString(path, GSON.toJson(jo));
 

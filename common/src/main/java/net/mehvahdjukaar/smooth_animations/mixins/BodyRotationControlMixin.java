@@ -2,7 +2,9 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,9 +15,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BodyRotationControlMixin {
 
     @Shadow
+    @Final
+    private Mob mob;
+
+    @Shadow
     protected abstract void rotateBodyIfNecessary();
     @Shadow
     protected abstract boolean notCarryingMobPassengers();
+    @Shadow
+    protected abstract boolean isMoving();
 
     @Inject(method = "clientTick", at = @At("TAIL"))
     private void smoothSP$keepBodyInReachEveryTick(CallbackInfo ci) {
@@ -23,6 +31,10 @@ public abstract class BodyRotationControlMixin {
 
         if (ModConfigs.entityRotationFix && notCarryingMobPassengers()) {
             rotateBodyIfNecessary();
+        }
+        //walking starts from yRot. It can happen that it might stll point to where it last walked to so a snap would occur
+        if (ModConfigs.idleYawFollowsBody && !isMoving() && !mob.isVehicle()) {
+            mob.setYRot(mob.yBodyRot);
         }
     }
 
