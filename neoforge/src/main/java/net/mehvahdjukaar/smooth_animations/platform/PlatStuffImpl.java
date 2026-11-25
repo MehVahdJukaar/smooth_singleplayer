@@ -33,6 +33,8 @@ public class PlatStuffImpl {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         var entityRotation = builder.comment("Fixes entity bodies rotating choppily when head rotates")
                 .define("smooth_body_turning", true);
+        var idleYaw = builder.comment("Mobs standing still keep their facing in line with their body. Prevent snapping back of previoys body rot when they start walking again")
+                .define("idle_yaw_follows_body", true);
         var snapPosition = builder.comment("Entities snap to their server position every tick. Off makes them trail behind it over 3 ticks like vanilla. Mobs still turn over a few ticks either way, snapping that too makes them flick around. True singleplayer.")
                 .define("snap_entity_position", true);
         var pitchLerp = builder.comment("Fixes sheep and drowned head pitch anim not being interpolated")
@@ -53,6 +55,8 @@ public class PlatStuffImpl {
                 .define("zero_tick_entity_sync", false);
         var serverLagFallback = builder.comment("When the server lags, the client stops waiting for it and runs on its own like vanilla, until the server catches up. Off makes the whole game slow down with the server, player included. No more 'client' or 'server' lag, just lag. True singleplayer.")
                 .define("server_lag_fallback", true);
+        var frameCatchUp = builder.comment("Fixes a tiny hitch on frames that run a tick")
+                .define("catch_up_frame_time_after_tick", true);
         var serverHitboxes = builder.comment("Draws a purple debug box where the integrated server has each entity. Render might jitter a as it's not interpolated")
                 .define("debug_server_hitboxes", false);
         ModConfigSpec spec = builder.build();
@@ -67,6 +71,7 @@ public class PlatStuffImpl {
 
         Runnable refresh = () -> {
             ModConfigs.entityRotationFix = entityRotation.get();
+            ModConfigs.idleYawFollowsBody = idleYaw.get();
             ModConfigs.fallingBlockLanding = fallingBlocks.get();
             ModConfigs.ghastSwell = ghastSwell.get();
             ModConfigs.ghastMouthFireball = ghastMouthFireball.get();
@@ -78,6 +83,7 @@ public class PlatStuffImpl {
             ModConfigs.showServerHitboxes = serverHitboxes.get();
             ModConfigs.zeroTickEntitySync = tickSync.get();
             ModConfigs.serverLagFallback = serverLagFallback.get();
+            ModConfigs.frameTimeCatchUp = frameCatchUp.get();
         };
 
         IEventBus bus = c.getEventBus();

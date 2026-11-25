@@ -2,6 +2,7 @@ package net.mehvahdjukaar.smooth_animations.mixins;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.mehvahdjukaar.smooth_animations.client.IJitterFixTimer;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.Util;
@@ -83,6 +84,8 @@ public abstract class MinecraftMixin {
     //partial tick is ocomputed right before the tick runs, so frames with a tick draw stuff a few ms late
     @Inject(method = "tick", at = @At("TAIL"))
     private void smoothAnim$catchUpFrameTime(CallbackInfo ci) {
-        ((IJitterFixTimer) timer).smoothAnim$catchUpPartialTick(Util.getMillis());
+        if (ModConfigs.frameTimeCatchUp) {
+            ((IJitterFixTimer) timer).smoothAnim$catchUpPartialTick(Util.getMillis());
+        }
     }
 }
