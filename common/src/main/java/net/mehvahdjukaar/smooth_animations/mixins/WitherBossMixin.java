@@ -13,7 +13,7 @@ public abstract class WitherBossMixin {
     @WrapWithCondition(method = "aiStep", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/entity/boss/wither/WitherBoss;setYRot(F)V"))
     private boolean smoothSP$serverYawOnlyStopShake(WitherBoss wither, float yRot) {
-        if (!ModConfigs.witherYawFix || !wither.level().isClientSide) return true;
+        if (!ModConfigs.witherYawFix || !wither.level().isClientSide()) return true;
         //on client yaw is set in 2 places. creating wobble. norally not an issue as server overrides this every tick in SP but on lan thats not the case so we do this
         return SmoothAnimationsClient.isTickLockedToServer();
     }
