@@ -1,2 +1,2 @@
-- we now require full 3 seconds of full non server lag for the lock mechanic to engage.
-- This makes it so sudden spikes in server lag wil get  client out f sync allowing camera to move around nicely at the cost of having everything else be lagging behind out of sync
+- wither yaw fix now also works on LAN
+- added a new mob yaw follows body feature. read its config
