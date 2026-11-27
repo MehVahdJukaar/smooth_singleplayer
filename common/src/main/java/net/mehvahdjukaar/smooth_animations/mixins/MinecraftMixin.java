@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.mehvahdjukaar.smooth_animations.ModConfigs;
 import net.mehvahdjukaar.smooth_animations.client.IJitterFixTimer;
+import net.mehvahdjukaar.smooth_animations.client.SmoothAnimationsClient;
 import net.mehvahdjukaar.smooth_animations.common.SinglePlayerTickManager;
 import net.minecraft.util.Util;
 import net.minecraft.client.DeltaTracker;
@@ -74,16 +75,16 @@ public abstract class MinecraftMixin {
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void ss$allowNextServerTick(CallbackInfo ci) {
+    private void  smoothAnim$afterTick(CallbackInfo ci) {
+        //after tickEntities so the held hurt lands with the knockback that just got applied. see comemnt on mixn class
+        SmoothAnimationsClient.releaseHeldHurtEffects();
+
         //tick done. server its your turn
         if (SinglePlayerTickManager.isClientDriven()){
             SinglePlayerTickManager.allowNextServerTick();
         }
-    }
 
-    //partial tick is ocomputed right before the tick runs, so frames with a tick draw stuff a few ms late
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void smoothAnim$catchUpFrameTime(CallbackInfo ci) {
+        //partial tick is ocomputed right before the tick runs, so frames with a tick draw stuff a few ms late
         if (ModConfigs.frameTimeCatchUp) {
             ((IJitterFixTimer) deltaTracker).smoothAnim$catchUpPartialTick(Util.getMillis());
         }

@@ -148,13 +148,15 @@ public class SinglePlayerTickManager {
         if (sendingDeferredChanges || !clientDrivesTicks || !ModConfigs.zeroTickEntitySync) {
             return false;
         }
-        //todo: add helper for comomon usage
-        boolean lerped = entity instanceof LivingEntity || entity instanceof LerpedOnClient;
-        if (!lerped) {
+        if (!isLerpedOnClient(entity)) {
             return false;
         }
         deferredSendChanges.add(serverEntity);
         return true;
+    }
+
+    public static boolean isLerpedOnClient(Entity entity) {
+        return entity instanceof LivingEntity || entity instanceof LerpedOnClient;
     }
 
     public static boolean isSendingDeferredChanges() {
