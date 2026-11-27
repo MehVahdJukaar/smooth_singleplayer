@@ -51,8 +51,8 @@ public class PlatStuffImpl {
                 .define("ghast_mouth_fireball", true);
         var ghastSwell = builder.comment("Ghasts will swell up before shooting like they did before 1.3!! :0. VANILLA squashes them like 1.2.5, SWELL also stretches them up so they look like they're taking in air")
                 .defineEnum("ghast_swell", ModConfigs.GhastSwell.VANILLA);
-        var tickSync = builder.comment("Sends entity positions AFTER they move instead ov before like vanilla does. This makes the server and client agree on their position EXACTLY (instead of being 1 tick behind). Projectiles and similar are unaffected and still client driven. Default off as it could be a bit more invasive, turn on for perfect sync")
-                .define("zero_tick_entity_sync", false);
+        var tickSync = builder.comment("Sends entity positions AFTER they move instead ov before like vanilla does. This makes the server and client agree on their position EXACTLY (instead of being 1 tick behind). Projectiles and similar are unaffected and still client driven. Also holds the hurt flash and sound for a tick so they land with the knockback")
+                .define("zero_tick_entity_sync", true);
         var serverLagFallback = builder.comment("When the server lags, the client stops waiting for it and runs on its own like vanilla, until the server catches up. Off makes the whole game slow down with the server, player included. No more 'client' or 'server' lag, just lag. True singleplayer.")
                 .define("server_lag_fallback", true);
         var frameCatchUp = builder.comment("Fixes a tiny hitch on frames that run a tick")
