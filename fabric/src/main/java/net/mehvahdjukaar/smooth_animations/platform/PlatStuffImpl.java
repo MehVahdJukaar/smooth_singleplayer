@@ -73,7 +73,7 @@ public class PlatStuffImpl {
             ModConfigs.slimeSquishLerp = GsonHelper.getAsBoolean(jo, "slime_squish_lerp", true);
             ModConfigs.snapEntityPosition = GsonHelper.getAsBoolean(jo, "snap_entity_position", true);
             ModConfigs.showServerHitboxes = GsonHelper.getAsBoolean(jo, "debug_server_hitboxes", false);
-            ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", false);
+            ModConfigs.zeroTickEntitySync = GsonHelper.getAsBoolean(jo, "zero_tick_entity_sync", true);
             ModConfigs.serverLagFallback = GsonHelper.getAsBoolean(jo, "server_lag_fallback", true);
             ModConfigs.frameTimeCatchUp = GsonHelper.getAsBoolean(jo, "catch_up_frame_time_after_tick", true);
         } catch (Exception ex) {
