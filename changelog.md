@@ -1,2 +1,2 @@
-- wither yaw fix now also works on LAN
-- added a new mob yaw follows body feature. read its config
+- fixed a discrepancy with hurt sound & red hurt not being in perfect sync with mob knockback and hand anim
+- made 0 tick config default on

@@ -12,7 +12,7 @@ public class ModConfigs {
     public static boolean idleYawFollowsBody = true;
     public static boolean snapEntityPosition = true;
     public static boolean showServerHitboxes = false;
-    public static boolean zeroTickEntitySync = false;
+    public static boolean zeroTickEntitySync = true;
     public static boolean serverLagFallback = true;
     public static boolean frameTimeCatchUp = true;
 
