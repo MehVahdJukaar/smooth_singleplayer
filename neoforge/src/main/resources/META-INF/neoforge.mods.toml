@@ -19,6 +19,9 @@ issueTrackerURL = "${mod_github}/issues"
     modUrl = "${mod_homepage}"
     logoFile = "icon.png"
 
+[modproperties.${mod_id}]
+    moonlight_config_screen = true
+
 [[dependencies.${mod_id}]]
     modId = "neoforge"
     type = "required"
